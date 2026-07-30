@@ -1,0 +1,116 @@
+/* Mobile rendering safeguards for GitHub Pages and embedded browsers. */
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+body {
+  overflow-x: hidden;
+  font-family: Arial, "Microsoft YaHei", "PingFang SC", "Hiragino Sans GB", "Noto Sans CJK SC", "Noto Sans SC", sans-serif;
+}
+
+img,
+svg,
+video,
+iframe {
+  max-width: 100%;
+}
+
+@media (max-width: 850px) {
+  .nav-wrap {
+    width: 100%;
+    padding-left: 18px;
+    padding-right: 14px;
+  }
+
+  .brand {
+    min-width: 0;
+    gap: 9px;
+  }
+
+  .brand span {
+    min-width: 0;
+  }
+
+  .brand b,
+  .brand small {
+    max-width: calc(100vw - 126px);
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .brand small {
+    letter-spacing: .22em;
+    text-indent: .22em;
+  }
+
+  .nav-links {
+    z-index: 6;
+    overscroll-behavior: contain;
+  }
+
+  .nav-links a,
+  .nav-links button,
+  .hero-text,
+  .about-copy p,
+  .home-gallery-head p,
+  .archive-head p,
+  .card-copy,
+  .contact p {
+    overflow-wrap: anywhere;
+    word-break: normal;
+  }
+
+  .kicker {
+    max-width: 100%;
+    line-height: 1.6;
+    letter-spacing: .14em;
+  }
+
+  .hero-title,
+  .hero-school-name,
+  .hero-team-title {
+    max-width: 100%;
+  }
+
+  .hero-team-title {
+    display: block;
+    height: auto;
+  }
+
+  .stats {
+    min-width: 0;
+  }
+
+  .stats div {
+    min-width: 0;
+  }
+
+  .stats b,
+  .stats span {
+    overflow-wrap: anywhere;
+  }
+}
+
+@media (max-width: 520px) {
+  .brand b {
+    font-size: 12px;
+    letter-spacing: .04em;
+  }
+
+  .brand small {
+    font-size: 9px;
+  }
+
+  .hero-content {
+    width: 100%;
+  }
+
+  .hero-school-name {
+    line-height: 1.25;
+  }
+
+  .home-gallery-slide figcaption h3 {
+    overflow-wrap: anywhere;
+  }
+}
