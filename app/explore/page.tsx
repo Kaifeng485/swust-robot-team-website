@@ -9,15 +9,10 @@ const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
 function assetUrl(url: string) {
   return url.startsWith("/") ? `${basePath}${url}` : url;
 }
-const options = [
-  { href: "/records", number: "01", title: "历届纪录", en: "TEAM LEGACY", text: "回看历届赛事、重要成绩与机器人迭代轨迹。" },
-  { href: "/learn-more", number: "02", title: "了解更多", en: "ABOUT THE TEAM", text: "认识团队方向、培养方式与真实的工程协作。" },
-  { href: "/daily", number: "03", title: "战队日常", en: "TEAM LIFE", text: "走进实验室，记录训练、调试和并肩奋斗的时刻。" },
-];
 
 export default function ExplorePage() {
   const [active, setActive] = useState(0);
-  const content = defaultContent;
+  const options = defaultContent.exploreCards;
 
   const move = (direction: number) => {
     setActive((current) => (current + direction + options.length) % options.length);
@@ -28,16 +23,16 @@ export default function ExplorePage() {
       <header className="inner-nav"><Link href="/">← 返回首页</Link><b>SWUST ROBOT TEAM</b></header>
       <section className="photo-carousel" aria-roledescription="carousel" aria-label="战队照片展示">
         {options.map((option, index) => (
-          <article className={index === active ? "photo-slide active" : "photo-slide"} key={option.href} aria-hidden={index !== active}>
+          <article className={index === active ? "photo-slide active" : "photo-slide"} key={option.id} aria-hidden={index !== active}>
             <img
-              src={assetUrl(content.seasons[index]?.image || content.heroBackgroundImage || "/gate.webp")}
+              src={assetUrl(option.image || defaultContent.seasons[index]?.image || defaultContent.heroBackgroundImage || "/gate.webp")}
               alt={`${option.title}照片`}
               loading={index === 0 ? "eager" : "lazy"}
               decoding="async"
             />
             <div className="photo-shade" />
             <div className="photo-copy">
-              <p>{option.number} / {option.en}</p>
+              <p>{option.number} / {option.englishTitle}</p>
               <h1>{option.title}</h1>
               <span>{option.text}</span>
               <Link href={option.href}>进入页面 →</Link>
@@ -48,7 +43,7 @@ export default function ExplorePage() {
           <button onClick={() => move(-1)} aria-label="上一张照片">←</button>
           <div>
             {options.map((option, index) => (
-              <button key={option.href} className={index === active ? "active" : ""} onClick={() => setActive(index)} aria-label={`查看${option.title}`} />
+              <button key={option.id} className={index === active ? "active" : ""} onClick={() => setActive(index)} aria-label={`查看${option.title}`} />
             ))}
           </div>
           <button onClick={() => move(1)} aria-label="下一张照片">→</button>
