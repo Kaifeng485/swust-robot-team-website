@@ -1,13 +1,9 @@
 import Link from "next/link";
-
-const directions = [
-  ["01", "机械结构", "机械设计、加工装配、传动与整机可靠性"],
-  ["02", "电控嵌入式", "硬件设计、底层驱动、传感器与运动控制"],
-  ["03", "视觉算法", "目标识别、定位、决策与机器人智能"],
-  ["04", "软件开发", "ROS 2、C++、Lua 与平台系统开发"],
-];
+import { defaultContent } from "../site-content";
 
 export default function RecruitmentPage() {
+  const content = defaultContent;
+
   return (
     <main className="recruit-page">
       <header className="inner-nav">
@@ -17,9 +13,9 @@ export default function RecruitmentPage() {
 
       <section className="recruit-hero">
         <div className="recruit-grid" aria-hidden="true" />
-        <p className="eyebrow">BUILD · CODE · COMPETE</p>
-        <h1>加入我们，<br /><span>把想法造出来。</span></h1>
-        <p>这里不只需要“已经很强”的人，更欢迎愿意学习、敢于动手、能和伙伴一起把问题解决的人。</p>
+        <p className="eyebrow">{content.recruitmentEyebrow}</p>
+        <h1>{content.recruitmentTitle}<br /><span>{content.recruitmentHighlight}</span></h1>
+        <p>{content.recruitmentText}</p>
         <a href="#directions" className="primary">查看招新方向 <Arrow /></a>
       </section>
 
@@ -29,11 +25,11 @@ export default function RecruitmentPage() {
           <h2>找到你的<span>位置</span></h2>
         </div>
         <div className="recruit-cards">
-          {directions.map(([number, title, text]) => (
-            <article key={number}>
-              <b>{number}</b>
-              <h3>{title}</h3>
-              <p>{text}</p>
+          {content.recruitmentDirections.map((direction) => (
+            <article key={direction.id}>
+              <b>{direction.number}</b>
+              <h3>{direction.title}</h3>
+              <p>{direction.text}</p>
               <i />
             </article>
           ))}
@@ -41,9 +37,9 @@ export default function RecruitmentPage() {
       </section>
 
       <section className="recruit-apply" id="apply">
-        <p className="eyebrow">READY TO START?</p>
-        <h2>你的下一段工程故事，<br />从这里开始。</h2>
-        <p>返回官网，在“加入小组”区域通过邮件投递个人信息与 PDF 简历。</p>
+        <p className="eyebrow">{content.recruitmentApplyEyebrow}</p>
+        <h2>{content.recruitmentApplyTitle}</h2>
+        <p>{content.recruitmentApplyText}</p>
         <Link href="/#contact" className="primary">前往投递简历 <Arrow /></Link>
       </section>
     </main>
