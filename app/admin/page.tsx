@@ -153,25 +153,9 @@ export default function AdminPage() {
     setStatus({ type: "idle", message: "存在尚未发布的修改" });
   };
 
-  const startOAuth = () => {
-    window.location.href = `${oauthWorkerUrl}/login`;
-  };
-
-  const logout = () => {
-    sessionStorage.removeItem(tokenStorageKey);
-    sessionStorage.removeItem(loginStorageKey);
-    setAuthenticated(false);
-    setLoginName("");
-    setStatus({ type: "idle", message: "已退出后台" });
-  };
-
   const getToken = () => {
     const token = sessionStorage.getItem(tokenStorageKey) ?? "";
-    if (!token) {
-      setAuthenticated(false);
-      setStatus({ type: "error", message: "登录状态已失效，请重新使用 GitHub 登录" });
-      throw new Error("登录状态已失效");
-    }
+    if (!token) throw new Error("登录状态已失效，请重新登录");
     return token;
   };
 
@@ -204,7 +188,7 @@ export default function AdminPage() {
         const detail = await response.json().catch(() => null);
         throw new Error(detail?.message || "图片上传失败");
       }
-      setStatus({ type: "success", message: "图片上传成功，请继续点击“发布到官网”保存内容引用" });
+      setStatus({ type: "success", message: "图片上传成功，请继续点击“发布到官网”" });
       return `/uploads/${fileName}`;
     } finally {
       setUploading(false);
@@ -212,10 +196,11 @@ export default function AdminPage() {
   };
 
   const save = async () => {
-    let token: string;
+    let token = "";
     try {
       token = getToken();
-    } catch {
+    } catch (error) {
+      setStatus({ type: "error", message: error instanceof Error ? error.message : "登录失效" });
       return;
     }
 
@@ -246,133 +231,116 @@ export default function AdminPage() {
         throw new Error(detail?.message || "GitHub 提交失败");
       }
       setPublishedSnapshot(content);
-      setStatus({ type: "success", message: "发布成功，GitHub Pages 正在自动部署，通常需要 1–3 分钟" });
+      setStatus({ type: "success", message: "发布成功，GitHub Pages 正在自动部署" });
     } catch (error) {
       setStatus({ type: "error", message: error instanceof Error ? error.message : "保存失败" });
     }
   };
 
-  const addGalleryPhoto = () => {
-    update("galleryPhotos", [
-      ...content.galleryPhotos,
-      { id: `gallery-${Date.now()}`, title: "新照片", caption: "照片说明", image: "/gate.webp" },
-    ]);
-  };
-
-  const addSeason = () => {
-    update("seasons", [
-      { id: `season-${Date.now()}`, year: String(new Date().getFullYear()), title: "新赛季", kind: "ROBOCON", note: "", image: "/gate.webp", video: "" },
-      ...content.seasons,
-    ]);
+  const logout = () => {
+    sessionStorage.removeItem(tokenStorageKey);
+    sessionStorage.removeItem(loginStorageKey);
+    setAuthenticated(false);
+    setLoginName("");
+    setStatus({ type: "idle", message: "已退出后台" });
   };
 
   if (!authenticated) {
-    return (
-      <main className="admin-login-shell">
-        <section className="admin-login-card">
-          <div className="admin-mark">SWUST</div>
-          <p className="admin-kicker">WEBSITE CONTROL CENTER</p>
-          <h1>机器人小组<br /><span>网站后台</span></h1>
-          <p className="admin-login-copy">使用 GitHub 官方授权登录。系统仅允许管理员账号 Kaifeng485 进入，无需再创建或输入个人访问令牌。</p>
-          <button className="admin-primary" onClick={startOAuth}>使用 GitHub 登录</button>
-          <a className="admin-back" href={`${basePath}/`}>← 返回官方网站</a>
-          <p className={`admin-status ${status.type}`}>{status.message}</p>
-        </section>
-      </main>
-    );
+    return <main className="admin-login-shell"><section className="admin-login-card">
+      <div className="admin-mark">SWUST</div>
+      <p className="admin-kicker">WEBSITE CONTROL CENTER</p>
+      <h1>机器人小组<br /><span>网站后台</span></h1>
+      <p className="admin-login-copy">使用 GitHub 官方授权登录，仅允许管理员账号 Kaifeng485。</p>
+      <button className="admin-primary" onClick={() => { window.location.href = `${oauthWorkerUrl}/login`; }}>使用 GitHub 登录</button>
+      <a className="admin-back" href={`${basePath}/`}>← 返回官方网站</a>
+      <p className={`admin-status ${status.type}`}>{status.message}</p>
+    </section></main>;
   }
 
-  return (
-    <main className="admin-shell">
-      <aside className="admin-sidebar">
-        <div className="admin-logo"><b>SWUST</b><span>ROBOT TEAM</span></div>
-        <nav>
-          {[["home", "首页内容"], ["about", "关于我们"], ["gallery", "照片展示"], ["seasons", "历届比赛"], ["contact", "加入我们"]].map(([id, label]) => (
-            <button key={id} className={active === id ? "active" : ""} onClick={() => setActive(id)}>{label}</button>
-          ))}
-        </nav>
-        <a href={`${basePath}/`} target="_blank" rel="noreferrer">查看官网 ↗</a>
-      </aside>
+  return <main className="admin-shell">
+    <aside className="admin-sidebar">
+      <div className="admin-logo"><b>SWUST</b><span>ROBOT TEAM</span></div>
+      <nav>{[["home", "首页内容"], ["about", "关于我们"], ["gallery", "照片展示"], ["seasons", "历届比赛"], ["contact", "加入我们"]].map(([id, label]) =>
+        <button key={id} className={active === id ? "active" : ""} onClick={() => setActive(id)}>{label}</button>)}</nav>
+      <a href={`${basePath}/`} target="_blank" rel="noreferrer">查看官网 ↗</a>
+    </aside>
 
-      <section className="admin-workspace">
-        <header className="admin-topbar">
-          <div><p>CONTENT MANAGEMENT</p><h1>网站内容管理</h1></div>
-          <div className="admin-actions">
-            <span className={`admin-status ${status.type}`}>{status.message}</span>
-            {loginName && <span className="admin-status success">@{loginName}</span>}
-            <button onClick={logout}>退出</button>
-            <button className="admin-primary" onClick={save} disabled={status.type === "saving" || uploading || !changed}>
-              {status.type === "saving" ? "处理中…" : changed ? "发布到官网" : "已是最新"}
-            </button>
-          </div>
-        </header>
-
-        <div className="admin-panel">
-          {active === "home" && <>
-            <SectionTitle index="01" title="首页内容" description="修改官网首屏介绍和背景图片。" />
-            <Field label="学校名称" value={content.heroTitle} onChange={(v) => update("heroTitle", v)} />
-            <Field label="团队名称" value={content.heroHighlight} onChange={(v) => update("heroHighlight", v)} />
-            <Field label="首页介绍" textarea value={content.heroText} onChange={(v) => update("heroText", v)} />
-            <Field label="背景图片路径" value={content.heroBackgroundImage} onChange={(v) => update("heroBackgroundImage", v)} />
-            <ImageUpload disabled={uploading} onUpload={async (file) => update("heroBackgroundImage", await uploadImage(file))} />
-          </>}
-
-          {active === "about" && <>
-            <SectionTitle index="02" title="关于我们" description="编辑团队简介和数据展示。" />
-            <Field label="英文小标题" value={content.aboutEyebrow} onChange={(v) => update("aboutEyebrow", v)} />
-            <Field label="主标题" value={content.aboutTitle} onChange={(v) => update("aboutTitle", v)} />
-            <Field label="团队介绍" textarea value={content.aboutText} onChange={(v) => update("aboutText", v)} />
-            <div className="admin-grid three">{content.aboutStats.map((stat, index) => <div className="admin-card" key={index}>
-              <Field label={`数据 ${index + 1}`} value={stat.value} onChange={(v) => update("aboutStats", content.aboutStats.map((item, i) => i === index ? { ...item, value: v } : item))} />
-              <Field label="说明" value={stat.label} onChange={(v) => update("aboutStats", content.aboutStats.map((item, i) => i === index ? { ...item, label: v } : item))} />
-            </div>)}</div>
-          </>}
-
-          {active === "gallery" && <>
-            <SectionTitle index="03" title="照片展示" description="新增、删除和上传首页照片。" />
-            <button className="admin-primary" onClick={addGalleryPhoto}>＋ 新增照片</button>
-            {content.galleryPhotos.map((photo, index) => <div className="admin-card list-card" key={photo.id}>
-              <div className="card-number">{String(index + 1).padStart(2, "0")}</div>
-              <div className="admin-grid three">
-                <Field label="标题" value={photo.title} onChange={(v) => update("galleryPhotos", content.galleryPhotos.map((item, i) => i === index ? { ...item, title: v } : item))} />
-                <Field label="说明" value={photo.caption} onChange={(v) => update("galleryPhotos", content.galleryPhotos.map((item, i) => i === index ? { ...item, caption: v } : item))} />
-                <Field label="图片路径" value={photo.image} onChange={(v) => update("galleryPhotos", content.galleryPhotos.map((item, i) => i === index ? { ...item, image: v } : item))} />
-              </div>
-              <ImageUpload disabled={uploading} onUpload={async (file) => update("galleryPhotos", content.galleryPhotos.map((item, i) => i === index ? { ...item, image: await uploadImage(file) } : item))} />
-              <button onClick={() => update("galleryPhotos", content.galleryPhotos.filter((_, i) => i !== index))}>删除这张照片</button>
-            </div>)}
-          </>}
-
-          {active === "seasons" && <>
-            <SectionTitle index="04" title="历届比赛" description="新增、删除赛季，维护封面和视频链接。" />
-            <button className="admin-primary" onClick={addSeason}>＋ 新增赛季</button>
-            {content.seasons.map((season, index) => <div className="admin-card list-card" key={season.id}>
-              <div className="card-number">{season.year}</div>
-              <div className="admin-grid two">
-                <Field label="年份" value={season.year} onChange={(v) => update("seasons", content.seasons.map((item, i) => i === index ? { ...item, year: v } : item))} />
-                <Field label="比赛名称" value={season.title} onChange={(v) => update("seasons", content.seasons.map((item, i) => i === index ? { ...item, title: v } : item))} />
-                <Field label="比赛类型" value={season.kind} onChange={(v) => update("seasons", content.seasons.map((item, i) => i === index ? { ...item, kind: v } : item))} />
-                <Field label="封面路径" value={season.image} onChange={(v) => update("seasons", content.seasons.map((item, i) => i === index ? { ...item, image: v } : item))} />
-                <Field label="视频链接" value={season.video} onChange={(v) => update("seasons", content.seasons.map((item, i) => i === index ? { ...item, video: v } : item))} />
-                <Field label="赛季说明" textarea value={season.note} onChange={(v) => update("seasons", content.seasons.map((item, i) => i === index ? { ...item, note: v } : item))} />
-              </div>
-              <ImageUpload disabled={uploading} onUpload={async (file) => update("seasons", content.seasons.map((item, i) => i === index ? { ...item, image: await uploadImage(file) } : item))} />
-              <button onClick={() => update("seasons", content.seasons.filter((_, i) => i !== index))}>删除这个赛季</button>
-            </div>)}
-          </>}
-
-          {active === "contact" && <>
-            <SectionTitle index="05" title="加入我们" description="修改招新文案和简历投递邮箱。" />
-            <Field label="主标题" value={content.contactTitle} onChange={(v) => update("contactTitle", v)} />
-            <Field label="说明文字" textarea value={content.contactText} onChange={(v) => update("contactText", v)} />
-            <Field label="联系邮箱" value={content.contactEmail} onChange={(v) => update("contactEmail", v)} />
-          </>}
-
-          <footer className="admin-change-note">{changed ? "当前包含尚未发布的修改。" : "当前后台内容已与最近一次发布保持一致。"}</footer>
+    <section className="admin-workspace">
+      <header className="admin-topbar">
+        <div><p>CONTENT MANAGEMENT</p><h1>网站内容管理</h1></div>
+        <div className="admin-actions">
+          <span className={`admin-status ${status.type}`}>{status.message}</span>
+          {loginName && <span className="admin-status success">@{loginName}</span>}
+          <button onClick={logout}>退出</button>
+          <button className="admin-primary" onClick={save} disabled={status.type === "saving" || uploading || !changed}>{status.type === "saving" ? "处理中…" : changed ? "发布到官网" : "已是最新"}</button>
         </div>
-      </section>
-    </main>
-  );
+      </header>
+
+      <div className="admin-panel">
+        {active === "home" && <>
+          <SectionTitle index="01" title="首页内容" description="修改官网首屏介绍和背景图片。" />
+          <Field label="学校名称" value={content.heroTitle} onChange={(v) => update("heroTitle", v)} />
+          <Field label="团队名称" value={content.heroHighlight} onChange={(v) => update("heroHighlight", v)} />
+          <Field label="首页介绍" textarea value={content.heroText} onChange={(v) => update("heroText", v)} />
+          <Field label="背景图片路径" value={content.heroBackgroundImage} onChange={(v) => update("heroBackgroundImage", v)} />
+          <ImageUpload disabled={uploading} onUpload={async (file) => { const image = await uploadImage(file); update("heroBackgroundImage", image); }} />
+        </>}
+
+        {active === "about" && <>
+          <SectionTitle index="02" title="关于我们" description="编辑团队简介和数据展示。" />
+          <Field label="英文小标题" value={content.aboutEyebrow} onChange={(v) => update("aboutEyebrow", v)} />
+          <Field label="主标题" value={content.aboutTitle} onChange={(v) => update("aboutTitle", v)} />
+          <Field label="团队介绍" textarea value={content.aboutText} onChange={(v) => update("aboutText", v)} />
+          <div className="admin-grid three">{content.aboutStats.map((stat, index) => <div className="admin-card" key={index}>
+            <Field label={`数据 ${index + 1}`} value={stat.value} onChange={(v) => update("aboutStats", content.aboutStats.map((item, i) => i === index ? { ...item, value: v } : item))} />
+            <Field label="说明" value={stat.label} onChange={(v) => update("aboutStats", content.aboutStats.map((item, i) => i === index ? { ...item, label: v } : item))} />
+          </div>)}</div>
+        </>}
+
+        {active === "gallery" && <>
+          <SectionTitle index="03" title="照片展示" description="新增、删除和上传首页照片。" />
+          <button className="admin-primary" onClick={() => update("galleryPhotos", [...content.galleryPhotos, { id: `gallery-${Date.now()}`, title: "新照片", caption: "照片说明", image: "/gate.webp" }])}>＋ 新增照片</button>
+          {content.galleryPhotos.map((photo, index) => <div className="admin-card list-card" key={photo.id}>
+            <div className="card-number">{String(index + 1).padStart(2, "0")}</div>
+            <div className="admin-grid three">
+              <Field label="标题" value={photo.title} onChange={(v) => update("galleryPhotos", content.galleryPhotos.map((item, i) => i === index ? { ...item, title: v } : item))} />
+              <Field label="说明" value={photo.caption} onChange={(v) => update("galleryPhotos", content.galleryPhotos.map((item, i) => i === index ? { ...item, caption: v } : item))} />
+              <Field label="图片路径" value={photo.image} onChange={(v) => update("galleryPhotos", content.galleryPhotos.map((item, i) => i === index ? { ...item, image: v } : item))} />
+            </div>
+            <ImageUpload disabled={uploading} onUpload={async (file) => { const image = await uploadImage(file); update("galleryPhotos", content.galleryPhotos.map((item, i) => i === index ? { ...item, image } : item)); }} />
+            <button onClick={() => update("galleryPhotos", content.galleryPhotos.filter((_, i) => i !== index))}>删除这张照片</button>
+          </div>)}
+        </>}
+
+        {active === "seasons" && <>
+          <SectionTitle index="04" title="历届比赛" description="新增、删除赛季，维护封面和视频链接。" />
+          <button className="admin-primary" onClick={() => update("seasons", [{ id: `season-${Date.now()}`, year: String(new Date().getFullYear()), title: "新赛季", kind: "ROBOCON", note: "", image: "/gate.webp", video: "" }, ...content.seasons])}>＋ 新增赛季</button>
+          {content.seasons.map((season, index) => <div className="admin-card list-card" key={season.id}>
+            <div className="card-number">{season.year}</div>
+            <div className="admin-grid two">
+              <Field label="年份" value={season.year} onChange={(v) => update("seasons", content.seasons.map((item, i) => i === index ? { ...item, year: v } : item))} />
+              <Field label="比赛名称" value={season.title} onChange={(v) => update("seasons", content.seasons.map((item, i) => i === index ? { ...item, title: v } : item))} />
+              <Field label="比赛类型" value={season.kind} onChange={(v) => update("seasons", content.seasons.map((item, i) => i === index ? { ...item, kind: v } : item))} />
+              <Field label="封面路径" value={season.image} onChange={(v) => update("seasons", content.seasons.map((item, i) => i === index ? { ...item, image: v } : item))} />
+              <Field label="视频链接" value={season.video} onChange={(v) => update("seasons", content.seasons.map((item, i) => i === index ? { ...item, video: v } : item))} />
+              <Field label="赛季说明" textarea value={season.note} onChange={(v) => update("seasons", content.seasons.map((item, i) => i === index ? { ...item, note: v } : item))} />
+            </div>
+            <ImageUpload disabled={uploading} onUpload={async (file) => { const image = await uploadImage(file); update("seasons", content.seasons.map((item, i) => i === index ? { ...item, image } : item)); }} />
+            <button onClick={() => update("seasons", content.seasons.filter((_, i) => i !== index))}>删除这个赛季</button>
+          </div>)}
+        </>}
+
+        {active === "contact" && <>
+          <SectionTitle index="05" title="加入我们" description="修改招新文案和简历投递邮箱。" />
+          <Field label="主标题" value={content.contactTitle} onChange={(v) => update("contactTitle", v)} />
+          <Field label="说明文字" textarea value={content.contactText} onChange={(v) => update("contactText", v)} />
+          <Field label="联系邮箱" value={content.contactEmail} onChange={(v) => update("contactEmail", v)} />
+        </>}
+
+        <footer className="admin-change-note">{changed ? "当前包含尚未发布的修改。" : "当前后台内容已与最近一次发布保持一致。"}</footer>
+      </div>
+    </section>
+  </main>;
 }
 
 function SectionTitle({ index, title, description }: { index: string; title: string; description: string }) {
