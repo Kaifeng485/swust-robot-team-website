@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import "./mobile-fix.css";
+import MobileNavEnhancer from "./MobileNavEnhancer";
 
 const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
 
@@ -29,7 +30,10 @@ export default function RootLayout({
       <head>
         <meta charSet="utf-8" />
       </head>
-      <body>{children}</body>
+      <body>
+        <MobileNavEnhancer />
+        {children}
+      </body>
     </html>
   );
 }
