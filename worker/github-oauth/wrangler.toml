@@ -1,0 +1,7 @@
+name = "swust-robot-team-oauth"
+main = "src/index.ts"
+compatibility_date = "2026-07-30"
+
+[vars]
+ADMIN_URL = "https://kaifeng485.github.io/swust-robot-team-website/admin/"
+ALLOWED_LOGIN = "Kaifeng485"
