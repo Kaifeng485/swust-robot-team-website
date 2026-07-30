@@ -105,8 +105,8 @@ export const defaultContent: SiteContent = {
       "label": "每年团队成员"
     },
     {
-      "value": "∞",
-      "label": "探索的边界"
+      "value": "12+",
+      "label": "每年荣获全国奖项"
     }
   ],
   "contactTitle": "下一台机器人，下一场比赛，等你一起创造。",
