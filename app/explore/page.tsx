@@ -1,9 +1,14 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useState } from "react";
-import { defaultContent, type SiteContent } from "../site-content";
+import { useState } from "react";
+import { defaultContent } from "../site-content";
 
+const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
+
+function assetUrl(url: string) {
+  return url.startsWith("/") ? `${basePath}${url}` : url;
+}
 const options = [
   { href: "/records", number: "01", title: "历届纪录", en: "TEAM LEGACY", text: "回看历届赛事、重要成绩与机器人迭代轨迹。" },
   { href: "/learn-more", number: "02", title: "了解更多", en: "ABOUT THE TEAM", text: "认识团队方向、培养方式与真实的工程协作。" },
@@ -12,14 +17,7 @@ const options = [
 
 export default function ExplorePage() {
   const [active, setActive] = useState(0);
-  const [content, setContent] = useState<SiteContent>(defaultContent);
-
-  useEffect(() => {
-    fetch("/api/content", { cache: "no-store" })
-      .then((response) => response.json())
-      .then(setContent)
-      .catch(() => {});
-  }, []);
+  const content = defaultContent;
 
   const move = (direction: number) => {
     setActive((current) => (current + direction + options.length) % options.length);
@@ -31,7 +29,7 @@ export default function ExplorePage() {
       <section className="photo-carousel" aria-roledescription="carousel" aria-label="战队照片展示">
         {options.map((option, index) => (
           <article className={index === active ? "photo-slide active" : "photo-slide"} key={option.href} aria-hidden={index !== active}>
-            <img src={content.seasons[index]?.image || content.heroBackgroundImage || "/gate.png"} alt={`${option.title}照片`} />
+            <img src={assetUrl(content.seasons[index]?.image || content.heroBackgroundImage || "/gate.png")} alt={`${option.title}照片`} />
             <div className="photo-shade" />
             <div className="photo-copy">
               <p>{option.number} / {option.en}</p>
