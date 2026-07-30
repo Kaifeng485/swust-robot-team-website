@@ -49,6 +49,31 @@ export type GalleryPhoto = {
   image: string;
 };
 
+export type ExploreCard = {
+  id: string;
+  number: string;
+  title: string;
+  englishTitle: string;
+  text: string;
+  href: string;
+  image: string;
+};
+
+export type PreparationStep = {
+  id: string;
+  number: string;
+  title: string;
+  status: string;
+  progress: string;
+};
+
+export type RecruitmentDirection = {
+  id: string;
+  number: string;
+  title: string;
+  text: string;
+};
+
 export type SiteContent = {
   heroTitle: string;
   heroHighlight: string;
@@ -64,6 +89,20 @@ export type SiteContent = {
   galleryPhotos: GalleryPhoto[];
   seasons: Season[];
   pages: CustomPage[];
+  exploreCards: ExploreCard[];
+  preparationEyebrow: string;
+  preparationTitle: string;
+  preparationHighlight: string;
+  preparationText: string;
+  preparationSteps: PreparationStep[];
+  recruitmentEyebrow: string;
+  recruitmentTitle: string;
+  recruitmentHighlight: string;
+  recruitmentText: string;
+  recruitmentDirections: RecruitmentDirection[];
+  recruitmentApplyEyebrow: string;
+  recruitmentApplyTitle: string;
+  recruitmentApplyText: string;
 };
 
 export const defaultContent: SiteContent = ${JSON.stringify(content, null, 2)};
@@ -257,10 +296,16 @@ export default function AdminPage() {
     </section></main>;
   }
 
+  const menu = [
+    ["home", "首页内容"], ["about", "关于我们"], ["gallery", "照片展示"],
+    ["seasons", "历届比赛"], ["explore", "探索战队"], ["preparation", "备赛进度"],
+    ["recruitment", "招新官网"], ["contact", "加入我们"],
+  ];
+
   return <main className="admin-shell">
     <aside className="admin-sidebar">
       <div className="admin-logo"><b>SWUST</b><span>ROBOT TEAM</span></div>
-      <nav>{[["home", "首页内容"], ["about", "关于我们"], ["gallery", "照片展示"], ["seasons", "历届比赛"], ["contact", "加入我们"]].map(([id, label]) =>
+      <nav>{menu.map(([id, label]) =>
         <button key={id} className={active === id ? "active" : ""} onClick={() => setActive(id)}>{label}</button>)}</nav>
       <a href={`${basePath}/`} target="_blank" rel="noreferrer">查看官网 ↗</a>
     </aside>
@@ -330,8 +375,72 @@ export default function AdminPage() {
           </div>)}
         </>}
 
+        {active === "explore" && <>
+          <SectionTitle index="05" title="探索战队" description="管理探索战队轮播入口、说明、链接和背景图。" />
+          <button className="admin-primary" onClick={() => update("exploreCards", [...content.exploreCards, { id: `explore-${Date.now()}`, number: String(content.exploreCards.length + 1).padStart(2, "0"), title: "新入口", englishTitle: "NEW PAGE", text: "页面说明", href: "/", image: "/gate.webp" }])}>＋ 新增入口</button>
+          {content.exploreCards.map((card, index) => <div className="admin-card list-card" key={card.id}>
+            <div className="card-number">{card.number}</div>
+            <div className="admin-grid two">
+              <Field label="序号" value={card.number} onChange={(v) => update("exploreCards", content.exploreCards.map((item, i) => i === index ? { ...item, number: v } : item))} />
+              <Field label="中文标题" value={card.title} onChange={(v) => update("exploreCards", content.exploreCards.map((item, i) => i === index ? { ...item, title: v } : item))} />
+              <Field label="英文标题" value={card.englishTitle} onChange={(v) => update("exploreCards", content.exploreCards.map((item, i) => i === index ? { ...item, englishTitle: v } : item))} />
+              <Field label="跳转链接" value={card.href} onChange={(v) => update("exploreCards", content.exploreCards.map((item, i) => i === index ? { ...item, href: v } : item))} />
+              <Field label="背景图片路径" value={card.image} onChange={(v) => update("exploreCards", content.exploreCards.map((item, i) => i === index ? { ...item, image: v } : item))} />
+              <Field label="说明文字" textarea value={card.text} onChange={(v) => update("exploreCards", content.exploreCards.map((item, i) => i === index ? { ...item, text: v } : item))} />
+            </div>
+            <ImageUpload disabled={uploading} onUpload={async (file) => { const image = await uploadImage(file); update("exploreCards", content.exploreCards.map((item, i) => i === index ? { ...item, image } : item)); }} />
+            <button onClick={() => update("exploreCards", content.exploreCards.filter((_, i) => i !== index))}>删除这个入口</button>
+          </div>)}
+        </>}
+
+        {active === "preparation" && <>
+          <SectionTitle index="06" title="备赛进度" description="编辑备赛页标题、简介和各阶段进度。" />
+          <div className="admin-grid two">
+            <Field label="英文小标题" value={content.preparationEyebrow} onChange={(v) => update("preparationEyebrow", v)} />
+            <Field label="标题前半部分" value={content.preparationTitle} onChange={(v) => update("preparationTitle", v)} />
+            <Field label="高亮标题" value={content.preparationHighlight} onChange={(v) => update("preparationHighlight", v)} />
+            <Field label="页面说明" textarea value={content.preparationText} onChange={(v) => update("preparationText", v)} />
+          </div>
+          <button className="admin-primary" onClick={() => update("preparationSteps", [...content.preparationSteps, { id: `step-${Date.now()}`, number: String(content.preparationSteps.length + 1).padStart(2, "0"), title: "新阶段", status: "待开始", progress: "0%" }])}>＋ 新增阶段</button>
+          {content.preparationSteps.map((step, index) => <div className="admin-card list-card" key={step.id}>
+            <div className="card-number">{step.number}</div>
+            <div className="admin-grid two">
+              <Field label="序号" value={step.number} onChange={(v) => update("preparationSteps", content.preparationSteps.map((item, i) => i === index ? { ...item, number: v } : item))} />
+              <Field label="阶段名称" value={step.title} onChange={(v) => update("preparationSteps", content.preparationSteps.map((item, i) => i === index ? { ...item, title: v } : item))} />
+              <Field label="状态" value={step.status} onChange={(v) => update("preparationSteps", content.preparationSteps.map((item, i) => i === index ? { ...item, status: v } : item))} />
+              <Field label="进度（如 72%）" value={step.progress} onChange={(v) => update("preparationSteps", content.preparationSteps.map((item, i) => i === index ? { ...item, progress: v } : item))} />
+            </div>
+            <button onClick={() => update("preparationSteps", content.preparationSteps.filter((_, i) => i !== index))}>删除这个阶段</button>
+          </div>)}
+        </>}
+
+        {active === "recruitment" && <>
+          <SectionTitle index="07" title="招新官网" description="编辑招新首页文案、招新方向和报名区域。" />
+          <div className="admin-grid two">
+            <Field label="英文小标题" value={content.recruitmentEyebrow} onChange={(v) => update("recruitmentEyebrow", v)} />
+            <Field label="标题前半部分" value={content.recruitmentTitle} onChange={(v) => update("recruitmentTitle", v)} />
+            <Field label="高亮标题" value={content.recruitmentHighlight} onChange={(v) => update("recruitmentHighlight", v)} />
+            <Field label="招新介绍" textarea value={content.recruitmentText} onChange={(v) => update("recruitmentText", v)} />
+          </div>
+          <button className="admin-primary" onClick={() => update("recruitmentDirections", [...content.recruitmentDirections, { id: `direction-${Date.now()}`, number: String(content.recruitmentDirections.length + 1).padStart(2, "0"), title: "新方向", text: "方向说明" }])}>＋ 新增招新方向</button>
+          {content.recruitmentDirections.map((direction, index) => <div className="admin-card list-card" key={direction.id}>
+            <div className="card-number">{direction.number}</div>
+            <div className="admin-grid two">
+              <Field label="序号" value={direction.number} onChange={(v) => update("recruitmentDirections", content.recruitmentDirections.map((item, i) => i === index ? { ...item, number: v } : item))} />
+              <Field label="方向名称" value={direction.title} onChange={(v) => update("recruitmentDirections", content.recruitmentDirections.map((item, i) => i === index ? { ...item, title: v } : item))} />
+              <Field label="方向说明" textarea value={direction.text} onChange={(v) => update("recruitmentDirections", content.recruitmentDirections.map((item, i) => i === index ? { ...item, text: v } : item))} />
+            </div>
+            <button onClick={() => update("recruitmentDirections", content.recruitmentDirections.filter((_, i) => i !== index))}>删除这个方向</button>
+          </div>)}
+          <div className="admin-card">
+            <Field label="报名区英文小标题" value={content.recruitmentApplyEyebrow} onChange={(v) => update("recruitmentApplyEyebrow", v)} />
+            <Field label="报名区标题" value={content.recruitmentApplyTitle} onChange={(v) => update("recruitmentApplyTitle", v)} />
+            <Field label="报名区说明" textarea value={content.recruitmentApplyText} onChange={(v) => update("recruitmentApplyText", v)} />
+          </div>
+        </>}
+
         {active === "contact" && <>
-          <SectionTitle index="05" title="加入我们" description="修改招新文案和简历投递邮箱。" />
+          <SectionTitle index="08" title="加入我们" description="修改官网底部招新文案和简历投递邮箱。" />
           <Field label="主标题" value={content.contactTitle} onChange={(v) => update("contactTitle", v)} />
           <Field label="说明文字" textarea value={content.contactText} onChange={(v) => update("contactText", v)} />
           <Field label="联系邮箱" value={content.contactEmail} onChange={(v) => update("contactEmail", v)} />
