@@ -1,7 +1,14 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import "./globals.css";
+import "./mobile-fix.css";
 
 const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  viewportFit: "cover",
+};
 
 export const metadata: Metadata = {
   title: "西南科大机器人小组 | SWUST Robot Team",
@@ -19,6 +26,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="zh-CN">
+      <head>
+        <meta charSet="utf-8" />
+      </head>
       <body>{children}</body>
     </html>
   );
