@@ -1,0 +1,69 @@
+:root { --admin-blue:#3152ff; --admin-yellow:#f7d500; --admin-bg:#07090f; --admin-panel:#101522; --admin-line:rgba(255,255,255,.12); --admin-muted:#929bac; }
+* { box-sizing:border-box; }
+body { margin:0; }
+button,input,textarea { font:inherit; }
+.admin-login-shell,.admin-shell { min-height:100svh; color:white; background:radial-gradient(circle at 80% 10%,rgba(49,82,255,.22),transparent 30%),#07090f; font-family:Arial,"Microsoft YaHei",sans-serif; }
+.admin-login-shell { display:grid; place-items:center; padding:28px; }
+.admin-login-card { width:min(520px,100%); padding:48px; border:1px solid var(--admin-line); background:linear-gradient(145deg,rgba(19,26,48,.96),rgba(8,11,18,.98)); box-shadow:0 30px 90px rgba(0,0,0,.42); }
+.admin-mark { display:inline-grid; place-items:center; width:72px; height:72px; margin-bottom:34px; border:1px solid rgba(247,213,0,.55); color:var(--admin-yellow); font-weight:900; letter-spacing:.08em; }
+.admin-kicker,.admin-topbar p { margin:0 0 12px; color:var(--admin-yellow); font-size:11px; letter-spacing:.22em; font-weight:800; }
+.admin-login-card h1 { margin:0; font-size:clamp(44px,8vw,76px); line-height:.95; letter-spacing:-.055em; }
+.admin-login-card h1 span { color:var(--admin-yellow); }
+.admin-login-copy { margin:28px 0; color:#a6afbf; line-height:1.8; }
+.admin-login-card label,.admin-field { display:flex; flex-direction:column; gap:9px; color:#c8cfdb; font-size:13px; }
+.admin-login-card input,.admin-field input,.admin-field textarea { width:100%; border:1px solid rgba(255,255,255,.14); outline:0; background:#090d16; color:white; padding:14px 16px; transition:.2s; }
+.admin-field textarea { resize:vertical; line-height:1.7; }
+.admin-login-card input:focus,.admin-field input:focus,.admin-field textarea:focus { border-color:var(--admin-blue); box-shadow:0 0 0 3px rgba(49,82,255,.14); }
+.admin-primary { min-height:48px; border:0; padding:0 22px; color:white; background:var(--admin-blue); font-weight:800; cursor:pointer; }
+.admin-primary:hover { background:#2039de; }
+.admin-primary:disabled { opacity:.58; cursor:wait; }
+.admin-login-card .admin-primary { width:100%; margin-top:18px; }
+.admin-back { display:inline-block; margin-top:20px; color:#aeb7c6; text-decoration:none; }
+.admin-status { font-size:12px; color:var(--admin-muted); }
+.admin-status.success { color:#72e59a; }.admin-status.error { color:#ff7d85; }.admin-status.saving { color:var(--admin-yellow); }
+.admin-login-card>.admin-status { margin:18px 0 0; }
+.admin-shell { display:grid; grid-template-columns:250px 1fr; }
+.admin-sidebar { position:sticky; top:0; height:100svh; display:flex; flex-direction:column; padding:34px 24px; border-right:1px solid var(--admin-line); background:rgba(7,10,16,.94); }
+.admin-logo { display:flex; flex-direction:column; padding:0 12px 34px; border-bottom:1px solid var(--admin-line); }
+.admin-logo b { font-size:25px; letter-spacing:.08em; }.admin-logo span { color:var(--admin-yellow); font-size:10px; letter-spacing:.28em; }
+.admin-sidebar nav { display:flex; flex-direction:column; gap:5px; margin-top:30px; }
+.admin-sidebar nav button { height:48px; border:0; border-left:3px solid transparent; padding:0 16px; background:transparent; color:#9da6b4; text-align:left; cursor:pointer; }
+.admin-sidebar nav button:hover,.admin-sidebar nav button.active { color:white; border-left-color:var(--admin-yellow); background:linear-gradient(90deg,rgba(49,82,255,.25),transparent); }
+.admin-sidebar>a { margin-top:auto; padding:14px; border-top:1px solid var(--admin-line); color:#b4bdca; text-decoration:none; }
+.admin-workspace { min-width:0; }
+.admin-topbar { display:flex; align-items:center; justify-content:space-between; gap:28px; min-height:116px; padding:24px clamp(24px,4vw,64px); border-bottom:1px solid var(--admin-line); background:rgba(9,12,19,.72); backdrop-filter:blur(12px); }
+.admin-topbar h1 { margin:0; font-size:30px; }
+.admin-actions { display:flex; align-items:center; gap:18px; }
+.admin-panel { width:min(1180px,100%); padding:54px clamp(24px,4vw,64px) 90px; }
+.section-title { display:flex; align-items:flex-start; gap:22px; margin-bottom:36px; }
+.section-title>span { color:var(--admin-yellow); font-weight:900; font-size:13px; }
+.section-title h2 { margin:0 0 8px; font-size:clamp(30px,4vw,48px); letter-spacing:-.04em; }
+.section-title p { margin:0; color:var(--admin-muted); }
+.admin-field { margin-bottom:22px; }
+.admin-grid { display:grid; gap:18px; }.admin-grid.two { grid-template-columns:repeat(2,minmax(0,1fr)); }.admin-grid.three { grid-template-columns:repeat(3,minmax(0,1fr)); }
+.admin-card { position:relative; padding:24px; border:1px solid var(--admin-line); background:linear-gradient(145deg,rgba(20,27,47,.9),rgba(11,15,24,.95)); }
+.admin-card .admin-field:last-child { margin-bottom:0; }
+.list-card { margin-bottom:18px; padding-top:54px; }
+.card-number { position:absolute; top:18px; left:24px; color:var(--admin-yellow); font-size:12px; font-weight:900; letter-spacing:.15em; }
+.admin-change-note { margin-top:34px; padding-top:22px; border-top:1px solid var(--admin-line); color:var(--admin-muted); font-size:13px; }
+@media (max-width:900px) {
+  .admin-shell { grid-template-columns:1fr; }
+  .admin-sidebar { position:relative; height:auto; padding:18px; border-right:0; border-bottom:1px solid var(--admin-line); }
+  .admin-logo { padding:0 0 18px; }
+  .admin-sidebar nav { flex-direction:row; overflow-x:auto; margin-top:16px; padding-bottom:4px; }
+  .admin-sidebar nav button { flex:0 0 auto; padding:0 14px; }
+  .admin-sidebar>a { display:none; }
+  .admin-topbar { align-items:flex-start; flex-direction:column; }
+  .admin-actions { width:100%; justify-content:space-between; }
+  .admin-grid.three { grid-template-columns:1fr; }
+}
+@media (max-width:620px) {
+  .admin-login-card { padding:32px 22px; }
+  .admin-topbar { padding:22px 18px; }
+  .admin-panel { padding:38px 18px 72px; }
+  .admin-actions { align-items:stretch; flex-direction:column; }
+  .admin-actions .admin-primary { width:100%; }
+  .admin-grid.two { grid-template-columns:1fr; }
+  .section-title { gap:14px; }
+  .admin-card { padding:20px; }.list-card { padding-top:50px; }
+}
