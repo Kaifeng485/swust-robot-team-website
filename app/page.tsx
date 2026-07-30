@@ -3,6 +3,12 @@
 import { useEffect, useState } from "react";
 import { defaultContent, type Season, type SiteContent } from "./site-content";
 
+const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
+
+function assetUrl(url: string) {
+  return url.startsWith("/") ? `${basePath}${url}` : url;
+}
+
 function getVideoEmbed(url: string) {
   try {
     const parsed = new URL(url);
@@ -40,31 +46,16 @@ function Arrow({ down = false }: { down?: boolean }) {
 export default function Home() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [selected, setSelected] = useState<Season | null>(null);
-  const [resumeOpen, setResumeOpen] = useState(false);
-  const [resumeStatus, setResumeStatus] = useState("");
-  const [content, setContent] = useState<SiteContent>(defaultContent);
+  const [content] = useState<SiteContent>(defaultContent);
   const [suppressedDropdown, setSuppressedDropdown] = useState<string | null>(null);
   const [photoIndex, setPhotoIndex] = useState(0);
   const [carouselPaused, setCarouselPaused] = useState(false);
 
   useEffect(() => {
     const onKey = (event: KeyboardEvent) => event.key === "Escape" && setSelected(null);
-    const loadContent = () => fetch("/api/content", { cache: "no-store" })
-      .then((response) => response.json())
-      .then(setContent)
-      .catch(() => {});
-    const onVisible = () => document.visibilityState === "visible" && loadContent();
-    const channel = new BroadcastChannel("site-content");
-    channel.addEventListener("message", loadContent);
     window.addEventListener("keydown", onKey);
-    window.addEventListener("pageshow", loadContent);
-    document.addEventListener("visibilitychange", onVisible);
-    loadContent();
     return () => {
       window.removeEventListener("keydown", onKey);
-      window.removeEventListener("pageshow", loadContent);
-      document.removeEventListener("visibilitychange", onVisible);
-      channel.close();
     };
   }, []);
 
@@ -127,12 +118,12 @@ export default function Home() {
   return (
     <main>
       <section className="hero" id="home">
-        <img className="hero-photo" src={heroBackgroundImage} alt="西南科技大学机器人小组首页背景" />
+        <img className="hero-photo" src={assetUrl(heroBackgroundImage)} alt="西南科技大学机器人小组首页背景" />
         <div className="hero-overlay" />
 
         <header className="nav-wrap">
           <button className="brand" onClick={() => go("home")} aria-label="返回首页">
-            <img src="/logo-transparent.png" alt="" />
+            <img src={assetUrl("/logo-transparent.png")} alt="" />
             <span>
               <b>西南科技大学</b>
               <small>机器人小组</small>
@@ -151,26 +142,26 @@ export default function Home() {
               </div>
             </div>
             <div className="nav-item">
-              <a href="/explore">探索战队</a>
+              <a href={`${basePath}/explore/`}>探索战队</a>
               <div className="nav-dropdown">
-                <a href="/records">历届纪录</a>
-                <a href="/learn-more">了解更多</a>
-                <a href="/daily">战队日常</a>
+                <a href={`${basePath}/records/`}>历届纪录</a>
+                <a href={`${basePath}/learn-more/`}>了解更多</a>
+                <a href={`${basePath}/daily/`}>战队日常</a>
               </div>
             </div>
             <div className="nav-item">
-              <a href="/preparation">战队备赛进度</a>
+              <a href={`${basePath}/preparation/`}>战队备赛进度</a>
               <div className="nav-dropdown">
-                <a href="/preparation">当前进度</a>
-                <a href="/preparation#stages">备赛阶段</a>
+                <a href={`${basePath}/preparation/`}>当前进度</a>
+                <a href={`${basePath}/preparation/#stages`}>备赛阶段</a>
               </div>
             </div>
             <div className="nav-item recruit-nav">
-              <a href="/recruitment">招新官网</a>
+              <a href={`${basePath}/recruitment/`}>招新官网</a>
               <div className="nav-dropdown">
-                <a href="/recruitment">招新首页</a>
-                <a href="/recruitment#directions">招新方向</a>
-                <a href="/recruitment#apply">报名方式</a>
+                <a href={`${basePath}/recruitment/`}>招新首页</a>
+                <a href={`${basePath}/recruitment/#directions`}>招新方向</a>
+                <a href={`${basePath}/recruitment/#apply`}>报名方式</a>
               </div>
             </div>
             {pages.filter((page) => page.visible).map((page) => (
@@ -194,7 +185,7 @@ export default function Home() {
             <span className="hero-school-name">西南科技大学</span>
             <img
               className="hero-team-title"
-              src="/robot-team-title.png"
+              src={assetUrl("/robot-team-title.png")}
               alt="机器人小组"
             />
           </div>
@@ -250,7 +241,7 @@ export default function Home() {
           >
             {galleryPhotos.map((photo, index) => (
               <figure className="home-gallery-slide" key={photo.id || index}>
-                <img src={photo.image || "/gate.png"} alt={photo.title} />
+                <img src={assetUrl(photo.image || "/gate.png")} alt={photo.title} />
                 <figcaption>
                   <span>{String(index + 1).padStart(2, "0")} / {String(galleryPhotos.length).padStart(2, "0")}</span>
                   <div>
@@ -298,7 +289,7 @@ export default function Home() {
                 disabled={!season.video}
               >
                 <span>{String(index + 1).padStart(2, "0")}</span>
-                <img src={season.image || "/gate.png"} alt={`${season.year} ${season.title}比赛影像封面`} />
+                <img src={assetUrl(season.image || "/gate.png")} alt={`${season.year} ${season.title}比赛影像封面`} />
                 <strong>{season.year}</strong>
                 {!season.video && <em className="awaiting-label">敬请期待</em>}
                 {season.video && <i className="card-play" aria-hidden="true">▶</i>}
@@ -320,7 +311,7 @@ export default function Home() {
 
       {pages.filter((page) => page.visible).map((page, index) => (
         <section className="custom-page" id={`page-${page.id}`} key={page.id}>
-          <img src={page.backgroundImage || heroBackgroundImage} alt="" />
+          <img src={assetUrl(page.backgroundImage || heroBackgroundImage)} alt="" />
           <div className="custom-page-overlay" />
           <div className="custom-page-content">
             <p className="kicker"><span />{page.eyebrow || `PAGE ${String(index + 1).padStart(2, "0")}`}</p>
@@ -374,16 +365,21 @@ export default function Home() {
             </g>
           </svg>
         </div>
-        <img src="/logo-transparent.png" alt="" />
+        <img src={assetUrl("/logo-transparent.png")} alt="" />
         <p className="eyebrow">BUILD THE FUTURE WITH US</p>
         <h2>{content.contactTitle}</h2>
         <p>{content.contactText}</p>
-        <button className="primary light" onClick={() => setResumeOpen(true)}>投递简历 <Arrow /></button>
+        <a
+          className="primary light"
+          href={`mailto:${content.contactEmail}?subject=${encodeURIComponent("西南科技大学机器人小组简历投递")}`}
+        >
+          邮件投递简历 <Arrow />
+        </a>
       </section>
 
       <footer>
         <div className="footer-brand">
-          <img src="/logo-transparent.png" alt="" />
+          <img src={assetUrl("/logo-transparent.png")} alt="" />
           <span><b>西南科技大学机器人小组</b><small>SWUST ROBOT TEAM</small></span>
         </div>
         <p>© SWUST ROBOT TEAM</p>
@@ -420,49 +416,6 @@ export default function Home() {
         </div>
       )}
 
-      {resumeOpen && (
-        <div className="modal-backdrop" role="presentation" onMouseDown={() => setResumeOpen(false)}>
-          <form
-            className="modal resume-modal"
-            onMouseDown={(event) => event.stopPropagation()}
-            onSubmit={async (event) => {
-              event.preventDefault();
-              setResumeStatus("正在提交…");
-              const response = await fetch("/api/applications", {
-                method: "POST",
-                body: new FormData(event.currentTarget),
-              });
-              const data = await response.json();
-              if (response.ok) {
-                event.currentTarget.reset();
-                setResumeStatus("投递成功，我们会尽快与你联系。");
-              } else {
-                setResumeStatus(data.error || "提交失败，请稍后重试。");
-              }
-            }}
-          >
-            <button type="button" className="modal-close" onClick={() => setResumeOpen(false)} aria-label="关闭">×</button>
-            <p className="eyebrow">JOIN SWUST ROBOT TEAM</p>
-            <h2>简历投递</h2>
-            <div className="resume-grid">
-              <label>姓名<input name="name" required maxLength={40} /></label>
-              <label>联系方式<input name="contact" required maxLength={80} placeholder="手机 / 邮箱 / QQ" /></label>
-              <label className="wide">申请方向
-                <select name="direction" required defaultValue="">
-                  <option value="" disabled>请选择方向</option>
-                  <option>机械结构</option><option>电控与嵌入式</option><option>视觉与算法</option>
-                  <option>软件开发</option><option>运营与宣传</option><option>暂未确定</option>
-                </select>
-              </label>
-              <label className="wide">自我介绍<textarea name="introduction" required maxLength={1200} /></label>
-              <label className="wide">上传简历（PDF，最大 8MB）<input name="resume" type="file" accept=".pdf,application/pdf" required /></label>
-            </div>
-            <button className="primary resume-submit" type="submit">确认投递 <Arrow /></button>
-            <p className="resume-destination">我们期待你的加入。</p>
-            <p className="resume-status" role="status">{resumeStatus}</p>
-          </form>
-        </div>
-      )}
     </main>
   );
 }
