@@ -16,6 +16,28 @@ iframe {
   max-width: 100%;
 }
 
+/* The contact logo and circuit are decorative background layers on every screen. */
+.contact {
+  isolation: isolate;
+}
+
+.contact-circuit {
+  z-index: 0;
+}
+
+.contact > img {
+  z-index: 1;
+  pointer-events: none;
+}
+
+.contact .eyebrow,
+.contact h2,
+.contact > p:not(.eyebrow),
+.contact .primary {
+  position: relative;
+  z-index: 2;
+}
+
 @media (max-width: 850px) {
   .nav-wrap {
     width: 100%;
@@ -59,6 +81,76 @@ iframe {
   .contact p {
     overflow-wrap: anywhere;
     word-break: normal;
+  }
+
+  /* Mobile navigation behaves as an accordion instead of showing every child item. */
+  .nav-links > .nav-item {
+    border-bottom: 1px solid rgba(255,255,255,.09);
+  }
+
+  .nav-links > .nav-item > a,
+  .nav-links > .nav-item > button {
+    position: relative;
+    width: 100%;
+    padding-right: 42px;
+  }
+
+  .nav-links > .nav-item > a::after,
+  .nav-links > .nav-item > button::after {
+    content: "+";
+    position: absolute;
+    right: 8px;
+    top: 50%;
+    color: rgba(255,255,255,.68);
+    font-size: 24px;
+    font-weight: 300;
+    line-height: 1;
+    transform: translateY(-52%);
+    transition: transform .22s ease, color .22s ease;
+  }
+
+  .nav-links > .nav-item.mobile-expanded > a::after,
+  .nav-links > .nav-item.mobile-expanded > button::after {
+    color: var(--yellow);
+    transform: translateY(-52%) rotate(45deg);
+  }
+
+  .nav-links > .nav-item .nav-dropdown,
+  .nav-links > .nav-item.dropdown-suppressed .nav-dropdown {
+    display: none !important;
+    position: static;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    transform: none !important;
+    pointer-events: none !important;
+    max-height: 0;
+    overflow: hidden;
+    padding: 0 0 0 18px;
+    border: 0;
+    background: rgba(255,255,255,.025);
+    box-shadow: none;
+  }
+
+  .nav-links > .nav-item.mobile-expanded .nav-dropdown,
+  .nav-links > .nav-item.mobile-expanded.dropdown-suppressed .nav-dropdown {
+    display: block !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    pointer-events: auto !important;
+    max-height: 260px;
+    padding: 2px 0 10px 18px;
+  }
+
+  .nav-links > .nav-item.mobile-expanded > a,
+  .nav-links > .nav-item.mobile-expanded > button {
+    color: var(--yellow);
+  }
+
+  .nav-dropdown a,
+  .nav-dropdown button {
+    min-width: 0;
+    border-left: 1px solid rgba(247,213,0,.22) !important;
+    padding-left: 18px !important;
   }
 
   .kicker {
@@ -170,13 +262,13 @@ iframe {
 }
 
 @keyframes mobile-logo-heartbeat {
-  0%, 9%, 100% { opacity:.07; transform:translate3d(-50%,-50%,0) scale(.96); }
-  13% { opacity:.32; transform:translate3d(-50%,-50%,0) scale(.985); }
-  17% { opacity:.12; transform:translate3d(-50%,-50%,0) scale(.97); }
-  22% { opacity:.58; transform:translate3d(-50%,-50%,0) scale(1); }
-  38% { opacity:.4; transform:translate3d(-50%,-50%,0) scale(.995); }
-  58% { opacity:.25; transform:translate3d(-50%,-50%,0) scale(.985); }
-  78% { opacity:.13; transform:translate3d(-50%,-50%,0) scale(.972); }
+  0%, 9%, 100% { opacity:.04; transform:translate3d(-50%,-50%,0) scale(.96); }
+  13% { opacity:.15; transform:translate3d(-50%,-50%,0) scale(.985); }
+  17% { opacity:.07; transform:translate3d(-50%,-50%,0) scale(.97); }
+  22% { opacity:.24; transform:translate3d(-50%,-50%,0) scale(1); }
+  38% { opacity:.17; transform:translate3d(-50%,-50%,0) scale(.995); }
+  58% { opacity:.11; transform:translate3d(-50%,-50%,0) scale(.985); }
+  78% { opacity:.06; transform:translate3d(-50%,-50%,0) scale(.972); }
 }
 
 @keyframes mobile-circuit-heartbeat {
