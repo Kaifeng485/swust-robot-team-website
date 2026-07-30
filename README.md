@@ -1,4 +1,29 @@
-# vinext-starter
+# 西南科技大学机器人小组官网
+
+西南科技大学机器人小组官方网站，使用 Next.js 构建并通过 GitHub Pages 自动发布。
+
+## 在线地址
+
+https://kaifeng485.github.io/swust-robot-team-website/
+
+## 更新网站
+
+网站内容位于 `app/` 目录。更新 `main` 分支后，GitHub Actions 会自动构建并发布网站。
+
+```bash
+npm ci
+npm run build:pages
+```
+
+静态文件输出在 `out/` 目录。
+
+## 静态部署说明
+
+GitHub Pages 不运行服务端接口，因此网站内容直接维护在 `app/site-content.ts` 中，简历通过邮件投递。
+
+---
+
+# Original Vinext Starter Notes
 
 A clean full-stack starter running on
 [vinext](https://github.com/cloudflare/vinext), with optional Cloudflare D1 and
