@@ -43,7 +43,7 @@ export default function RecruitmentPage() {
       <section className="recruit-apply" id="apply">
         <p className="eyebrow">READY TO START?</p>
         <h2>你的下一段工程故事，<br />从这里开始。</h2>
-        <p>返回官网，在“加入小组”区域提交个人信息与 PDF 简历。</p>
+        <p>返回官网，在“加入小组”区域通过邮件投递个人信息与 PDF 简历。</p>
         <Link href="/#contact" className="primary">前往投递简历 <Arrow /></Link>
       </section>
     </main>
