@@ -83,7 +83,7 @@ export default function Home() {
 
   const galleryPhotos = content.galleryPhotos?.length
     ? content.galleryPhotos
-    : [{ id: "default", title: "机器人小组", caption: "TEAM MOMENTS", image: "/gate.png" }];
+    : [{ id: "default", title: "机器人小组", caption: "TEAM MOMENTS", image: "/gate.webp" }];
 
   useEffect(() => {
     if (photoIndex >= galleryPhotos.length) setPhotoIndex(0);
@@ -113,17 +113,28 @@ export default function Home() {
   };
 
   const pages = content.pages || [];
-  const heroBackgroundImage = content.heroBackgroundImage || "/gate.png";
+  const heroBackgroundImage = content.heroBackgroundImage || "/gate.webp";
 
   return (
     <main>
       <section className="hero" id="home">
-        <img className="hero-photo" src={assetUrl(heroBackgroundImage)} alt="西南科技大学机器人小组首页背景" />
+        <picture className="hero-picture">
+          {heroBackgroundImage === "/gate.webp" && (
+            <source media="(max-width: 700px)" srcSet={assetUrl("/gate-mobile.webp")} />
+          )}
+          <img
+            className="hero-photo"
+            src={assetUrl(heroBackgroundImage)}
+            alt="西南科技大学机器人小组首页背景"
+            fetchPriority="high"
+            decoding="async"
+          />
+        </picture>
         <div className="hero-overlay" />
 
         <header className="nav-wrap">
           <button className="brand" onClick={() => go("home")} aria-label="返回首页">
-            <img src={assetUrl("/logo-transparent.png")} alt="" />
+            <img src={assetUrl("/logo-transparent.webp")} alt="" width="52" height="52" />
             <span>
               <b>西南科技大学</b>
               <small>机器人小组</small>
@@ -185,8 +196,11 @@ export default function Home() {
             <span className="hero-school-name">西南科技大学</span>
             <img
               className="hero-team-title"
-              src={assetUrl("/robot-team-title.png")}
+              src={assetUrl("/robot-team-title.webp")}
               alt="机器人小组"
+              width="1100"
+              height="186"
+              decoding="async"
             />
           </div>
           <p className="hero-text">{content.heroText}</p>
@@ -241,7 +255,12 @@ export default function Home() {
           >
             {galleryPhotos.map((photo, index) => (
               <figure className="home-gallery-slide" key={photo.id || index}>
-                <img src={assetUrl(photo.image || "/gate.png")} alt={photo.title} />
+                <img
+                  src={assetUrl(photo.image || "/gate.webp")}
+                  alt={photo.title}
+                  loading={index === 0 ? "eager" : "lazy"}
+                  decoding="async"
+                />
                 <figcaption>
                   <span>{String(index + 1).padStart(2, "0")} / {String(galleryPhotos.length).padStart(2, "0")}</span>
                   <div>
@@ -289,7 +308,12 @@ export default function Home() {
                 disabled={!season.video}
               >
                 <span>{String(index + 1).padStart(2, "0")}</span>
-                <img src={assetUrl(season.image || "/gate.png")} alt={`${season.year} ${season.title}比赛影像封面`} />
+                <img
+                  src={assetUrl(season.image || "/gate.webp")}
+                  alt={`${season.year} ${season.title}比赛影像封面`}
+                  loading="lazy"
+                  decoding="async"
+                />
                 <strong>{season.year}</strong>
                 {!season.video && <em className="awaiting-label">敬请期待</em>}
                 {season.video && <i className="card-play" aria-hidden="true">▶</i>}
@@ -311,7 +335,7 @@ export default function Home() {
 
       {pages.filter((page) => page.visible).map((page, index) => (
         <section className="custom-page" id={`page-${page.id}`} key={page.id}>
-          <img src={assetUrl(page.backgroundImage || heroBackgroundImage)} alt="" />
+          <img src={assetUrl(page.backgroundImage || heroBackgroundImage)} alt="" loading="lazy" decoding="async" />
           <div className="custom-page-overlay" />
           <div className="custom-page-content">
             <p className="kicker"><span />{page.eyebrow || `PAGE ${String(index + 1).padStart(2, "0")}`}</p>
@@ -365,7 +389,7 @@ export default function Home() {
             </g>
           </svg>
         </div>
-        <img src={assetUrl("/logo-transparent.png")} alt="" />
+        <img src={assetUrl("/logo-transparent.webp")} alt="" loading="lazy" decoding="async" />
         <p className="eyebrow">BUILD THE FUTURE WITH US</p>
         <h2>{content.contactTitle}</h2>
         <p>{content.contactText}</p>
@@ -379,7 +403,7 @@ export default function Home() {
 
       <footer>
         <div className="footer-brand">
-          <img src={assetUrl("/logo-transparent.png")} alt="" />
+          <img src={assetUrl("/logo-transparent.webp")} alt="" loading="lazy" decoding="async" />
           <span><b>西南科技大学机器人小组</b><small>SWUST ROBOT TEAM</small></span>
         </div>
         <p>© SWUST ROBOT TEAM</p>

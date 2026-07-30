@@ -29,7 +29,12 @@ export default function ExplorePage() {
       <section className="photo-carousel" aria-roledescription="carousel" aria-label="战队照片展示">
         {options.map((option, index) => (
           <article className={index === active ? "photo-slide active" : "photo-slide"} key={option.href} aria-hidden={index !== active}>
-            <img src={assetUrl(content.seasons[index]?.image || content.heroBackgroundImage || "/gate.png")} alt={`${option.title}照片`} />
+            <img
+              src={assetUrl(content.seasons[index]?.image || content.heroBackgroundImage || "/gate.webp")}
+              alt={`${option.title}照片`}
+              loading={index === 0 ? "eager" : "lazy"}
+              decoding="async"
+            />
             <div className="photo-shade" />
             <div className="photo-copy">
               <p>{option.number} / {option.en}</p>
