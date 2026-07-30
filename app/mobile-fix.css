@@ -90,6 +90,47 @@ iframe {
   .stats span {
     overflow-wrap: anywhere;
   }
+
+  /* Keep the mobile contact animation GPU-friendly. */
+  .contact {
+    min-height: 640px;
+    padding: 104px 20px;
+  }
+
+  .contact-circuit {
+    inset: 5% -38%;
+    opacity: .1;
+    filter: none;
+    mask-image: radial-gradient(ellipse 27% 38% at 50% 50%, transparent 0 61%, rgba(0,0,0,.18) 72%, #000 100%);
+    -webkit-mask-image: radial-gradient(ellipse 27% 38% at 50% 50%, transparent 0 61%, rgba(0,0,0,.18) 72%, #000 100%);
+    animation: mobile-circuit-heartbeat 6.8s cubic-bezier(.4,0,.2,1) infinite !important;
+    will-change: opacity;
+    transform: translateZ(0);
+  }
+
+  .contact-circuit svg {
+    max-width: none;
+  }
+
+  .circuit-traces {
+    stroke-width: 1.15;
+  }
+
+  .circuit-traces path,
+  .circuit-nodes {
+    filter: none;
+  }
+
+  .contact > img {
+    width: min(300px, 58vw);
+    max-height: none;
+    opacity: .08;
+    filter: brightness(.72) saturate(.9) drop-shadow(0 0 5px rgba(49,132,255,.24));
+    animation: mobile-logo-heartbeat 6.8s cubic-bezier(.4,0,.2,1) infinite;
+    will-change: opacity, transform;
+    transform: translate3d(-50%,-50%,0) scale(.96);
+    backface-visibility: hidden;
+  }
 }
 
 @media (max-width: 520px) {
@@ -113,4 +154,37 @@ iframe {
   .home-gallery-slide figcaption h3 {
     overflow-wrap: anywhere;
   }
+
+  .contact {
+    min-height: 590px;
+    padding: 92px 20px;
+  }
+
+  .contact > img {
+    width: min(246px, 62vw);
+  }
+
+  .contact-circuit {
+    inset: 8% -64%;
+  }
+}
+
+@keyframes mobile-logo-heartbeat {
+  0%, 9%, 100% { opacity:.07; transform:translate3d(-50%,-50%,0) scale(.96); }
+  13% { opacity:.32; transform:translate3d(-50%,-50%,0) scale(.985); }
+  17% { opacity:.12; transform:translate3d(-50%,-50%,0) scale(.97); }
+  22% { opacity:.58; transform:translate3d(-50%,-50%,0) scale(1); }
+  38% { opacity:.4; transform:translate3d(-50%,-50%,0) scale(.995); }
+  58% { opacity:.25; transform:translate3d(-50%,-50%,0) scale(.985); }
+  78% { opacity:.13; transform:translate3d(-50%,-50%,0) scale(.972); }
+}
+
+@keyframes mobile-circuit-heartbeat {
+  0%, 9%, 100% { opacity:.035; }
+  13% { opacity:.22; }
+  17% { opacity:.075; }
+  22% { opacity:.48; }
+  38% { opacity:.34; }
+  58% { opacity:.21; }
+  78% { opacity:.09; }
 }
