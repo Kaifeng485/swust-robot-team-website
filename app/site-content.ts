@@ -139,21 +139,21 @@ export const defaultContent: SiteContent = {
     },
     {
       "id": "gallery-1785407758374",
-      "title": "实验室",
-      "caption": "",
+      "title": "实验室大堂",
+      "caption": "备赛场地",
       "image": "/uploads/1785407852411-9f563010b8e681ed7cd9661b7c84416d.png"
     },
     {
       "id": "gallery-1785407758524",
-      "title": "新照片",
-      "caption": "照片说明",
-      "image": "/gate.webp"
+      "title": "赛前准备",
+      "caption": "2024 RC",
+      "image": "/uploads/1785408029139-fa514ae37f5d4a1bb120fbd20e4b5c10.png"
     },
     {
       "id": "gallery-1785407758675",
-      "title": "新照片",
-      "caption": "照片说明",
-      "image": "/gate.webp"
+      "title": "荣誉墙",
+      "caption": "历届奖项展览",
+      "image": "/uploads/1785408087000-2a07ac2800981f48db64c54acbb906a6.png"
     }
   ],
   "seasons": [
