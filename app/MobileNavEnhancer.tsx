@@ -13,6 +13,26 @@ export default function MobileNavEnhancer() {
     const items = Array.from(nav.querySelectorAll<HTMLElement>(":scope > .nav-item"));
     const cleanups: Array<() => void> = [];
 
+    const optimizeMobileImages = () => {
+      if (!media.matches) return;
+
+      const priorityImages = new Set(
+        Array.from(document.querySelectorAll<HTMLImageElement>(
+          ".hero-photo, .brand img, .hero-team-title",
+        )),
+      );
+
+      document.querySelectorAll<HTMLImageElement>("img").forEach((image) => {
+        image.decoding = "async";
+        if (priorityImages.has(image)) return;
+
+        image.loading = "lazy";
+        image.fetchPriority = "low";
+      });
+    };
+
+    optimizeMobileImages();
+
     const closeOtherGroups = (current: HTMLElement) => {
       items.forEach((item) => {
         if (item !== current) item.classList.remove("mobile-expanded");
@@ -53,7 +73,10 @@ export default function MobileNavEnhancer() {
     });
 
     const resetGroups = () => {
-      if (media.matches) return;
+      if (media.matches) {
+        optimizeMobileImages();
+        return;
+      }
       items.forEach((item) => {
         item.classList.remove("mobile-expanded");
         item.querySelector<HTMLElement>(":scope > a, :scope > button")?.setAttribute("aria-expanded", "false");
