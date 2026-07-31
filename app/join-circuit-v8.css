@@ -1,0 +1,20 @@
+/* V8: full-screen circuit field around the join logo */
+.contact-circuit{display:none!important}
+.contact::before{
+  content:""!important;
+  position:absolute!important;
+  inset:0!important;
+  z-index:1!important;
+  pointer-events:none!important;
+  opacity:.9!important;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1600 800' preserveAspectRatio='none'%3E%3Cg fill='none' stroke='%2334cad6' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M0 36H245L300 91H430L486 147'/%3E%3Cpath d='M22 80L82 140H218L274 196H390L444 250'/%3E%3Cpath d='M0 190H180L240 250H360L420 310'/%3E%3Cpath d='M0 570H200L258 512H380L438 454'/%3E%3Cpath d='M42 626H280L338 568H450L510 508'/%3E%3Cpath d='M92 706H360L418 648H530L590 588'/%3E%3Cpath d='M1600 36H1358L1302 92H1170L1112 150'/%3E%3Cpath d='M1576 82L1518 140H1382L1324 198H1210L1150 258'/%3E%3Cpath d='M1600 188H1420L1360 248H1240L1180 308'/%3E%3Cpath d='M1600 570H1400L1342 512H1220L1162 454'/%3E%3Cpath d='M1558 626H1320L1262 568H1150L1090 508'/%3E%3Cpath d='M1508 706H1240L1182 648H1070L1010 588'/%3E%3Cpath d='M370 0L430 60H520L576 116'/%3E%3Cpath d='M640 0V72L694 126'/%3E%3Cpath d='M1230 0L1170 60H1080L1024 116'/%3E%3Cpath d='M960 0V72L906 126'/%3E%3Cpath d='M370 800L430 740H520L576 684'/%3E%3Cpath d='M640 800V728L694 674'/%3E%3Cpath d='M1230 800L1170 740H1080L1024 684'/%3E%3Cpath d='M960 800V728L906 674'/%3E%3C/g%3E%3Cg fill='%23080d17' stroke='%2334cad6' stroke-width='1.5'%3E%3Ccircle cx='245' cy='36' r='5'/%3E%3Ccircle cx='300' cy='91' r='5'/%3E%3Ccircle cx='430' cy='91' r='5'/%3E%3Ccircle cx='218' cy='140' r='5'/%3E%3Ccircle cx='274' cy='196' r='5'/%3E%3Ccircle cx='240' cy='250' r='5'/%3E%3Ccircle cx='200' cy='570' r='5'/%3E%3Ccircle cx='338' cy='568' r='5'/%3E%3Ccircle cx='418' cy='648' r='5'/%3E%3Ccircle cx='1358' cy='36' r='5'/%3E%3Ccircle cx='1302' cy='92' r='5'/%3E%3Ccircle cx='1170' cy='92' r='5'/%3E%3Ccircle cx='1382' cy='140' r='5'/%3E%3Ccircle cx='1324' cy='198' r='5'/%3E%3Ccircle cx='1360' cy='248' r='5'/%3E%3Ccircle cx='1400' cy='570' r='5'/%3E%3Ccircle cx='1262' cy='568' r='5'/%3E%3Ccircle cx='1182' cy='648' r='5'/%3E%3Ccircle cx='430' cy='60' r='5'/%3E%3Ccircle cx='640' cy='72' r='5'/%3E%3Ccircle cx='1170' cy='60' r='5'/%3E%3Ccircle cx='960' cy='72' r='5'/%3E%3Ccircle cx='430' cy='740' r='5'/%3E%3Ccircle cx='640' cy='728' r='5'/%3E%3Ccircle cx='1170' cy='740' r='5'/%3E%3Ccircle cx='960' cy='728' r='5'/%3E%3C/g%3E%3C/svg%3E")!important;
+  background-size:100% 100%!important;
+  background-position:center!important;
+  background-repeat:no-repeat!important;
+  filter:drop-shadow(0 0 5px rgba(52,202,214,.58))!important;
+}
+.contact>img{z-index:2!important}
+.contact>*:not(img):not(.contact-circuit){z-index:3!important}
+@media(max-width:900px){
+  .contact::before{background-size:185% 100%!important;background-position:center!important;opacity:.68!important}
+}
