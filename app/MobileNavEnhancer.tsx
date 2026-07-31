@@ -10,6 +10,10 @@ export default function MobileNavEnhancer() {
     const nav = document.querySelector<HTMLElement>(".nav-links");
     const menuButton = document.querySelector<HTMLButtonElement>(".menu-button");
     const navWrap = document.querySelector<HTMLElement>(".nav-wrap");
+    const contactCircuit = document.querySelector<SVGSVGElement>(".contact-circuit svg");
+
+    contactCircuit?.setAttribute("preserveAspectRatio", "xMidYMid meet");
+
     if (!nav) return;
 
     const items = Array.from(nav.querySelectorAll<HTMLElement>(":scope > .nav-item"));
@@ -106,6 +110,7 @@ export default function MobileNavEnhancer() {
     };
 
     const resetGroups = () => {
+      contactCircuit?.setAttribute("preserveAspectRatio", "xMidYMid meet");
       if (media.matches) {
         optimizeMobileImages();
         return;
