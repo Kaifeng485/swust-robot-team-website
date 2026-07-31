@@ -8,6 +8,8 @@ export default function MobileNavEnhancer() {
   useEffect(() => {
     const media = window.matchMedia(MOBILE_NAV_QUERY);
     const nav = document.querySelector<HTMLElement>(".nav-links");
+    const menuButton = document.querySelector<HTMLButtonElement>(".menu-button");
+    const navWrap = document.querySelector<HTMLElement>(".nav-wrap");
     if (!nav) return;
 
     const items = Array.from(nav.querySelectorAll<HTMLElement>(":scope > .nav-item"));
@@ -31,11 +33,29 @@ export default function MobileNavEnhancer() {
       });
     };
 
+    const collapseGroups = () => {
+      items.forEach((item) => {
+        item.classList.remove("mobile-expanded");
+        item.querySelector<HTMLElement>(":scope > a, :scope > button")
+          ?.setAttribute("aria-expanded", "false");
+      });
+    };
+
+    const closeMobileMenu = () => {
+      if (!media.matches || !nav.classList.contains("open")) return;
+      collapseGroups();
+      menuButton?.click();
+    };
+
     optimizeMobileImages();
 
     const closeOtherGroups = (current: HTMLElement) => {
       items.forEach((item) => {
-        if (item !== current) item.classList.remove("mobile-expanded");
+        if (item !== current) {
+          item.classList.remove("mobile-expanded");
+          item.querySelector<HTMLElement>(":scope > a, :scope > button")
+            ?.setAttribute("aria-expanded", "false");
+        }
       });
     };
 
@@ -72,20 +92,35 @@ export default function MobileNavEnhancer() {
       });
     });
 
+    const onDocumentPointerDown = (event: PointerEvent) => {
+      if (!media.matches || !nav.classList.contains("open")) return;
+      const target = event.target;
+      if (!(target instanceof Node)) return;
+      if (navWrap?.contains(target)) return;
+      closeMobileMenu();
+    };
+
+    const onEscape = (event: KeyboardEvent) => {
+      if (event.key !== "Escape") return;
+      closeMobileMenu();
+    };
+
     const resetGroups = () => {
       if (media.matches) {
         optimizeMobileImages();
         return;
       }
-      items.forEach((item) => {
-        item.classList.remove("mobile-expanded");
-        item.querySelector<HTMLElement>(":scope > a, :scope > button")?.setAttribute("aria-expanded", "false");
-      });
+      collapseGroups();
     };
 
+    document.addEventListener("pointerdown", onDocumentPointerDown, true);
+    document.addEventListener("keydown", onEscape);
     media.addEventListener("change", resetGroups);
+
     return () => {
       cleanups.forEach((cleanup) => cleanup());
+      document.removeEventListener("pointerdown", onDocumentPointerDown, true);
+      document.removeEventListener("keydown", onEscape);
       media.removeEventListener("change", resetGroups);
     };
   }, []);
