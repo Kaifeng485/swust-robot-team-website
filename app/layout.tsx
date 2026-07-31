@@ -8,6 +8,7 @@ import "./tech-theme-v2.css";
 import "./reference-layout.css";
 import "./apple-tech-v3.css";
 import "./apple-product-v4.css";
+import "./visual-fixes-v5.css";
 import MobileNavEnhancer from "./MobileNavEnhancer";
 
 const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
