@@ -1,11 +1,12 @@
-/* Mobile rendering safeguards for GitHub Pages and embedded browsers. */
+/* Mobile layout, rendering and loading optimizations. */
 html {
   -webkit-text-size-adjust: 100%;
   text-size-adjust: 100%;
+  overflow-x: clip;
 }
 
 body {
-  overflow-x: hidden;
+  overflow-x: clip;
   font-family: Arial, "Microsoft YaHei", "PingFang SC", "Hiragino Sans GB", "Noto Sans CJK SC", "Noto Sans SC", sans-serif;
 }
 
@@ -16,7 +17,21 @@ iframe {
   max-width: 100%;
 }
 
-/* The contact logo and circuit are decorative background layers on every screen. */
+img {
+  height: auto;
+}
+
+/* Skip layout and paint work for sections that are still far below the screen. */
+.about,
+.home-gallery,
+.archive,
+.custom-page,
+.contact,
+footer {
+  content-visibility: auto;
+  contain-intrinsic-size: 760px;
+}
+
 .contact {
   isolation: isolate;
 }
@@ -41,13 +56,20 @@ iframe {
 @media (max-width: 850px) {
   .nav-wrap {
     width: 100%;
-    padding-left: 18px;
-    padding-right: 14px;
+    height: 74px;
+    padding: 0 14px 0 17px;
+    backdrop-filter: blur(8px);
+    background: linear-gradient(180deg, rgba(3,8,10,.54), rgba(3,8,10,.08));
   }
 
   .brand {
     min-width: 0;
     gap: 9px;
+  }
+
+  .brand img {
+    width: 40px;
+    height: 40px;
   }
 
   .brand span {
@@ -56,19 +78,61 @@ iframe {
 
   .brand b,
   .brand small {
-    max-width: calc(100vw - 126px);
+    max-width: calc(100vw - 118px);
     overflow: hidden;
     text-overflow: ellipsis;
   }
 
+  .brand b {
+    font-size: 13px;
+  }
+
   .brand small {
-    letter-spacing: .22em;
-    text-indent: .22em;
+    font-size: 9px;
+    letter-spacing: .2em;
+    text-indent: .2em;
+  }
+
+  .menu-button {
+    width: 46px;
+    height: 46px;
+    flex: 0 0 46px;
+    touch-action: manipulation;
   }
 
   .nav-links {
+    top: 74px;
     z-index: 6;
+    max-height: calc(100svh - 74px);
+    padding: 8px 18px calc(22px + env(safe-area-inset-bottom));
+    overflow-y: auto;
     overscroll-behavior: contain;
+    background: rgba(6,9,14,.97);
+    backdrop-filter: blur(16px);
+  }
+
+  .nav-links.open {
+    display: flex;
+  }
+
+  .nav-links > button,
+  .nav-links > .nav-item,
+  .nav-links > .nav-item > a,
+  .nav-links > .nav-item > button {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .nav-links > button,
+  .nav-links > .nav-item > a,
+  .nav-links > .nav-item > button {
+    min-height: 52px;
+    height: auto;
+    justify-content: flex-start;
+    padding: 14px 42px 14px 4px;
+    border: 0;
+    border-bottom: 1px solid rgba(255,255,255,.09);
+    text-align: left;
   }
 
   .nav-links a,
@@ -83,16 +147,13 @@ iframe {
     word-break: normal;
   }
 
-  /* Mobile navigation behaves as an accordion instead of showing every child item. */
   .nav-links > .nav-item {
-    border-bottom: 1px solid rgba(255,255,255,.09);
+    border-bottom: 0;
   }
 
   .nav-links > .nav-item > a,
   .nav-links > .nav-item > button {
     position: relative;
-    width: 100%;
-    padding-right: 42px;
   }
 
   .nav-links > .nav-item > a::after,
@@ -102,7 +163,7 @@ iframe {
     right: 8px;
     top: 50%;
     color: rgba(255,255,255,.68);
-    font-size: 24px;
+    font-size: 23px;
     font-weight: 300;
     line-height: 1;
     transform: translateY(-52%);
@@ -125,7 +186,7 @@ iframe {
     pointer-events: none !important;
     max-height: 0;
     overflow: hidden;
-    padding: 0 0 0 18px;
+    padding: 0 0 0 14px;
     border: 0;
     background: rgba(255,255,255,.025);
     box-shadow: none;
@@ -137,8 +198,8 @@ iframe {
     opacity: 1 !important;
     visibility: visible !important;
     pointer-events: auto !important;
-    max-height: 260px;
-    padding: 2px 0 10px 18px;
+    max-height: 280px;
+    padding: 2px 0 8px 14px;
   }
 
   .nav-links > .nav-item.mobile-expanded > a,
@@ -149,14 +210,30 @@ iframe {
   .nav-dropdown a,
   .nav-dropdown button {
     min-width: 0;
+    min-height: 46px;
+    height: auto;
     border-left: 1px solid rgba(247,213,0,.22) !important;
-    padding-left: 18px !important;
+    padding: 12px 16px !important;
+  }
+
+  .hero {
+    min-height: 100svh;
+  }
+
+  .hero-photo {
+    object-position: 58% center;
+  }
+
+  .hero-content {
+    width: 100%;
+    padding: clamp(220px, 34svh, 320px) 20px 104px;
   }
 
   .kicker {
     max-width: 100%;
-    line-height: 1.6;
-    letter-spacing: .14em;
+    margin-bottom: 18px;
+    line-height: 1.55;
+    letter-spacing: .12em;
   }
 
   .hero-title,
@@ -165,9 +242,51 @@ iframe {
     max-width: 100%;
   }
 
+  .hero-school-name {
+    font-size: clamp(27px, 7.6vw, 42px);
+    line-height: 1.18;
+    letter-spacing: .065em;
+    white-space: normal;
+  }
+
   .hero-team-title {
     display: block;
+    width: 100%;
     height: auto;
+    margin-top: 12px;
+  }
+
+  .hero-text {
+    max-width: 34rem;
+    margin: 22px 0 26px;
+    font-size: 15px;
+    line-height: 1.72;
+  }
+
+  .primary {
+    min-height: 54px;
+  }
+
+  .scroll-cue {
+    left: 18px;
+    bottom: 22px;
+  }
+
+  .about,
+  .home-gallery,
+  .archive {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  .about {
+    grid-template-columns: 1fr;
+    gap: 34px;
+  }
+
+  .about-copy > p {
+    max-width: none;
+    margin-bottom: 30px;
   }
 
   .stats {
@@ -176,6 +295,7 @@ iframe {
 
   .stats div {
     min-width: 0;
+    padding-left: 12px;
   }
 
   .stats b,
@@ -183,29 +303,72 @@ iframe {
     overflow-wrap: anywhere;
   }
 
-  /* Keep the mobile contact animation GPU-friendly. */
+  .home-gallery-head,
+  .archive-head {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 18px;
+    margin-bottom: 34px;
+  }
+
+  .home-gallery-slide {
+    min-height: 430px;
+    height: 66svh;
+  }
+
+  .home-gallery-slide figcaption {
+    grid-template-columns: 1fr auto;
+    gap: 14px;
+  }
+
+  .home-gallery-slide figcaption > span {
+    display: none;
+  }
+
+  .gallery-arrow {
+    width: 46px;
+    height: 46px;
+  }
+
+  .gallery-arrow.prev {
+    left: 12px;
+  }
+
+  .gallery-arrow.next {
+    right: 12px;
+  }
+
+  .season-grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* Keep the Join Us scene visually consistent with desktop.
+     Only scale the artwork to the smaller viewport; do not replace the composition. */
   .contact {
-    min-height: 640px;
-    padding: 104px 20px;
+    min-height: 680px;
+    padding: 116px 20px 104px;
+    overflow: hidden;
   }
 
   .contact-circuit {
-    inset: 5% -38%;
-    opacity: .1;
+    inset: -2% -28%;
+    opacity: .16;
     filter: none;
-    mask-image: radial-gradient(ellipse 27% 38% at 50% 50%, transparent 0 61%, rgba(0,0,0,.18) 72%, #000 100%);
-    -webkit-mask-image: radial-gradient(ellipse 27% 38% at 50% 50%, transparent 0 61%, rgba(0,0,0,.18) 72%, #000 100%);
-    animation: mobile-circuit-heartbeat 6.8s cubic-bezier(.4,0,.2,1) infinite !important;
+    mask-image: radial-gradient(ellipse 30% 40% at 50% 50%, transparent 0 59%, rgba(0,0,0,.18) 70%, #000 100%);
+    -webkit-mask-image: radial-gradient(ellipse 30% 40% at 50% 50%, transparent 0 59%, rgba(0,0,0,.18) 70%, #000 100%);
+    animation-duration: 8.6s !important;
     will-change: opacity;
     transform: translateZ(0);
   }
 
   .contact-circuit svg {
+    width: 100%;
+    height: 100%;
     max-width: none;
   }
 
   .circuit-traces {
-    stroke-width: 1.15;
+    stroke-width: 1.1;
   }
 
   .circuit-traces path,
@@ -214,69 +377,127 @@ iframe {
   }
 
   .contact > img {
-    width: min(300px, 58vw);
-    max-height: none;
-    opacity: .08;
-    filter: brightness(.72) saturate(.9) drop-shadow(0 0 5px rgba(49,132,255,.24));
-    animation: mobile-logo-heartbeat 6.8s cubic-bezier(.4,0,.2,1) infinite;
+    width: min(430px, 78vw);
+    max-height: 62%;
+    opacity: .1;
+    filter: brightness(.76) saturate(.94) drop-shadow(0 0 7px rgba(49,132,255,.26));
+    animation-duration: 8.6s !important;
     will-change: opacity, transform;
-    transform: translate3d(-50%,-50%,0) scale(.96);
     backface-visibility: hidden;
+  }
+
+  .contact h2 {
+    font-size: clamp(40px, 11vw, 62px);
+  }
+
+  .contact > p:not(.eyebrow) {
+    max-width: 34rem;
+    line-height: 1.8;
+  }
+
+  /* Filters and blur are expensive on low-power mobile GPUs. */
+  .reveal-on-scroll {
+    filter: none;
+    transform: translateY(18px);
+  }
+
+  .season-card:hover,
+  .primary:hover {
+    transform: none;
   }
 }
 
 @media (max-width: 520px) {
-  .brand b {
-    font-size: 12px;
-    letter-spacing: .04em;
-  }
-
-  .brand small {
-    font-size: 9px;
-  }
-
   .hero-content {
-    width: 100%;
+    padding-top: clamp(205px, 31svh, 270px);
   }
 
-  .hero-school-name {
-    line-height: 1.25;
+  .hero-text br,
+  .contact > p br {
+    display: none;
   }
 
-  .home-gallery-slide figcaption h3 {
-    overflow-wrap: anywhere;
+  .scroll-cue span {
+    display: none;
+  }
+
+  .about,
+  .archive,
+  .home-gallery {
+    padding: 72px 18px 84px;
+  }
+
+  .stats b {
+    font-size: 28px;
+  }
+
+  .stats span {
+    font-size: 10px;
+  }
+
+  .home-gallery-slide {
+    min-height: 420px;
+    height: 62svh;
+  }
+
+  .home-gallery-slide figcaption {
+    left: 18px;
+    right: 18px;
+    bottom: 28px;
+  }
+
+  .home-gallery-slide figcaption strong {
+    font-size: 38px;
+  }
+
+  .card-visual {
+    height: 220px;
+  }
+
+  .card-copy {
+    padding: 22px;
   }
 
   .contact {
-    min-height: 590px;
-    padding: 92px 20px;
+    min-height: 620px;
+    padding: 100px 18px 92px;
   }
 
   .contact > img {
-    width: min(246px, 62vw);
+    width: min(360px, 84vw);
+    max-height: 60%;
   }
 
   .contact-circuit {
-    inset: 8% -64%;
+    inset: 2% -52%;
   }
 }
 
-@keyframes mobile-logo-heartbeat {
-  0%, 9%, 100% { opacity:.04; transform:translate3d(-50%,-50%,0) scale(.96); }
-  13% { opacity:.15; transform:translate3d(-50%,-50%,0) scale(.985); }
-  17% { opacity:.07; transform:translate3d(-50%,-50%,0) scale(.97); }
-  22% { opacity:.24; transform:translate3d(-50%,-50%,0) scale(1); }
-  38% { opacity:.17; transform:translate3d(-50%,-50%,0) scale(.995); }
-  58% { opacity:.11; transform:translate3d(-50%,-50%,0) scale(.985); }
-  78% { opacity:.06; transform:translate3d(-50%,-50%,0) scale(.972); }
+/* Honor user/device requests for lower motion and data usage. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    transition-duration: .01ms !important;
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+
+  .reveal-on-scroll {
+    opacity: 1 !important;
+    transform: none !important;
+    filter: none !important;
+  }
 }
 
-@keyframes mobile-circuit-heartbeat {
-  0%, 9%, 100% { opacity:.035; }
-  13% { opacity:.22; }
-  17% { opacity:.075; }
-  22% { opacity:.48; }
-  38% { opacity:.34; }
-  58% { opacity:.21; }
-  78% { opacity:.09; }
+@media (prefers-reduced-data: reduce) {
+  .hero::before,
+  .contact-circuit {
+    animation: none !important;
+  }
+
+  .contact-circuit {
+    opacity: .08;
+  }
 }
