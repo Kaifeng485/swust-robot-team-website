@@ -1,0 +1,63 @@
+/* Apple-inspired product layout: strong spacing, restrained decoration, consistent media */
+:root{--apple-blue:#2997ff;--apple-yellow:#ffd60a;--apple-black:#000;--apple-dark:#06070a;--apple-card:#111216;--apple-white:#f5f5f7;--apple-gray:#86868b}
+html{background:#000}
+body{background:#000;color:var(--apple-white);font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text","Helvetica Neue","PingFang SC","Microsoft YaHei",sans-serif;letter-spacing:-.01em}
+
+/* Cleaner navigation */
+.nav-wrap{height:72px;padding:0 max(24px,calc((100vw - 1280px)/2));background:rgba(0,0,0,.72);border-bottom:1px solid rgba(255,255,255,.12);backdrop-filter:saturate(180%) blur(22px);-webkit-backdrop-filter:saturate(180%) blur(22px);position:fixed}
+.brand img{width:42px;height:42px}.brand b{font-size:14px}.brand small{font-size:9px}
+.nav-links>button,.nav-item>button,.nav-item>a{min-width:auto;height:72px;padding:0 18px;border:0;font-size:13px;color:rgba(255,255,255,.82)}
+.nav-links button:last-child{border:0}.nav-item>a:hover,.nav-item>button:hover,.nav-links>button:hover{background:transparent;color:white}
+.nav-dropdown{border:1px solid rgba(255,255,255,.12);border-radius:16px;background:rgba(20,20,22,.92);overflow:hidden;backdrop-filter:blur(24px)}
+
+/* Hero becomes a product launch stage */
+.hero{min-height:100svh;background:#000}.hero-photo{object-position:center 46%;filter:saturate(.82) contrast(1.08) brightness(.68)}
+.hero-overlay{background:linear-gradient(180deg,rgba(0,0,0,.18),rgba(0,0,0,.15) 45%,#000 100%),radial-gradient(circle at 50% 44%,transparent 0,rgba(0,0,0,.12) 45%,rgba(0,0,0,.62) 100%)}
+.hero::before{display:none}
+.hero-content{max-width:1100px;margin:auto;padding:clamp(190px,25vh,270px) 24px 130px;text-align:center;display:flex;flex-direction:column;align-items:center}
+.hero-title{width:100%;align-items:center}.hero-school-name{font-size:clamp(22px,2.4vw,36px);letter-spacing:.16em;margin:0 0 12px}.hero-team-title{width:min(760px,88vw);margin:0;object-position:center}
+.kicker{justify-content:center;color:var(--apple-yellow);font-size:12px;letter-spacing:.2em}.kicker span{display:none}
+.hero-text{max-width:720px;margin:26px auto 34px;font-size:clamp(17px,1.5vw,22px);line-height:1.65;color:rgba(245,245,247,.78)}
+.primary{min-height:48px;min-width:0;padding:0 24px;border-radius:999px;background:var(--apple-blue);gap:14px;font-size:15px}.primary:hover{background:#0077ed;transform:scale(1.02)}
+.scroll-cue{left:50%;bottom:28px;transform:translateX(-50%)}
+
+/* Apple-style section rhythm */
+.about,.home-gallery,.archive,.contact,.custom-page{padding:clamp(96px,11vw,160px) max(24px,calc((100vw - 1280px)/2))}
+.about{display:block;text-align:center;background:#f5f5f7;color:#1d1d1f;border:0}
+.about>div:first-child,.about-copy{max-width:980px;margin:auto}.about .eyebrow{color:#06c}.about h2{font-size:clamp(44px,6vw,82px);letter-spacing:-.055em;max-width:1050px;margin:auto}
+.about-copy>p{max-width:820px;margin:38px auto 0;color:#6e6e73;font-size:clamp(17px,1.45vw,21px);line-height:1.65}.about-copy>.about-extra{margin:18px auto 0}
+.stats{max-width:850px;margin:70px auto 0;padding:0;border:0;gap:16px}.stats div{border:0;border-radius:24px;background:white;padding:34px 20px;box-shadow:0 8px 30px rgba(0,0,0,.06)}.stats b{font-size:44px;color:#1d1d1f}.stats span{color:#6e6e73}
+
+/* Uniform gallery: all media uses the same 16:9 crop */
+.home-gallery{background:#000}.home-gallery-head,.archive-head{display:block;text-align:center;margin-bottom:52px}.home-gallery-head>p,.archive-head>p{max-width:620px;margin:18px auto 0;font-size:18px;line-height:1.6;color:var(--apple-gray)}
+.home-gallery h2,.archive h2{font-size:clamp(46px,6vw,80px);letter-spacing:-.055em}
+.home-gallery-viewport{max-width:1280px;margin:auto;border-radius:32px;background:#111;box-shadow:0 30px 90px rgba(0,0,0,.45);overflow:hidden}
+.home-gallery-slide{height:auto;min-height:0;aspect-ratio:16/9;background:#111}
+.home-gallery-slide>img{width:100%;height:100%;object-fit:cover;object-position:center;filter:none}
+.home-gallery-slide figcaption{left:34px;right:34px;bottom:30px;grid-template-columns:70px 1fr auto}.home-gallery-slide figcaption h3{font-size:clamp(25px,3vw,44px)}
+.gallery-arrow{width:48px;height:48px;background:rgba(0,0,0,.55);border:0}.gallery-arrow.prev{left:18px}.gallery-arrow.next{right:18px}
+
+/* Cards look like Apple product tiles */
+.archive{background:#f5f5f7;color:#1d1d1f}.archive .eyebrow{color:#06c}.archive-head>p{color:#6e6e73}
+.season-grid{gap:24px}.season-card{border:0;border-radius:28px;background:#fff;box-shadow:0 10px 35px rgba(0,0,0,.07);overflow:hidden}.season-card:hover{transform:translateY(-4px);box-shadow:0 18px 50px rgba(0,0,0,.11)}
+.card-visual{height:auto;aspect-ratio:16/10;background:#e8e8ed}.card-visual img{width:100%;height:100%;object-fit:cover;object-position:center;filter:none}.card-visual::after{background:linear-gradient(180deg,transparent 55%,rgba(0,0,0,.55))}.card-copy{padding:26px 28px 30px}.card-copy h3{color:#1d1d1f;font-size:25px}.card-copy p{color:#6e6e73}.card-copy button{color:#06c}
+
+/* Recruitment: cinematic but minimal */
+.recruit-page{background:#000;color:#f5f5f7}.inner-nav{height:64px;padding:0 max(22px,calc((100vw - 1200px)/2));background:rgba(0,0,0,.72);backdrop-filter:blur(20px);border-bottom:1px solid rgba(255,255,255,.1)}
+.recruit-hero{min-height:88svh;padding:150px 24px 110px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;background:radial-gradient(circle at 50% 35%,rgba(41,151,255,.24),transparent 31%),linear-gradient(180deg,#05070c,#000)}
+.recruit-grid{opacity:.18;mask-image:linear-gradient(to bottom,black,transparent)}.recruit-hero h1{max-width:1000px;font-size:clamp(58px,9vw,128px);line-height:.94;letter-spacing:-.07em}.recruit-hero>p:not(.eyebrow){max-width:680px;font-size:clamp(18px,1.55vw,23px);line-height:1.6;color:#a1a1a6}
+.recruit-directions{padding:130px max(24px,calc((100vw - 1240px)/2));background:#f5f5f7;color:#1d1d1f}.recruit-section-head{text-align:center;max-width:900px;margin:0 auto 64px}.recruit-section-head .eyebrow{color:#06c}.recruit-section-head h2{font-size:clamp(48px,7vw,88px)}
+.recruit-cards{grid-template-columns:repeat(2,1fr);gap:24px}.recruit-cards article{min-height:340px;padding:40px;border:0;border-radius:30px;background:#fff;box-shadow:0 8px 30px rgba(0,0,0,.06);display:flex;flex-direction:column}.recruit-cards article b{color:#06c}.recruit-cards article h3{font-size:34px;margin:70px 0 16px}.recruit-cards article p{color:#6e6e73;font-size:17px;line-height:1.7}.recruit-cards article i{margin-top:auto;background:linear-gradient(90deg,#06c,transparent)}
+.recruit-values{background:#000;padding:120px max(24px,calc((100vw - 1240px)/2))}.recruit-values-grid{gap:18px}.recruit-value{border-radius:26px;background:#111216;border:1px solid rgba(255,255,255,.08);padding:34px}
+.recruit-apply{margin:0;padding:150px 24px;text-align:center;background:radial-gradient(circle at 50% 30%,rgba(41,151,255,.22),transparent 35%),#000}.recruit-apply h2{font-size:clamp(48px,7vw,92px);max-width:980px;margin:auto}.recruit-apply>p:not(.eyebrow){max-width:680px;margin:28px auto 36px;color:#a1a1a6;font-size:20px;line-height:1.6}
+
+/* Explore and preparation */
+.explore-page,.progress-page{background:#000}.photo-carousel{min-height:100svh}.photo-slide img{object-fit:cover;object-position:center;filter:brightness(.72) saturate(.88)}.photo-copy{left:50%;bottom:auto;top:50%;transform:translate(-50%,-45%);width:min(900px,88vw);text-align:center}.photo-copy h1{font-size:clamp(58px,9vw,124px)}.photo-copy span{max-width:620px;margin:20px auto;display:block;font-size:20px}.photo-copy a{display:inline-flex;border-radius:999px;background:#2997ff;padding:14px 24px}
+.progress-page .inner-hero{padding:170px 24px 100px;text-align:center;background:radial-gradient(circle at 50% 25%,rgba(41,151,255,.22),transparent 30%),#000}.progress-page .inner-hero h1{font-size:clamp(56px,8vw,110px)}.progress-list{padding:30px max(24px,calc((100vw - 1100px)/2)) 130px;background:#000}.progress-list article{border-radius:26px;background:#111216;border:1px solid rgba(255,255,255,.08);margin-bottom:18px;padding:32px}.progress-list article h2{font-size:clamp(23px,3vw,36px)}
+
+/* Consistent cropping everywhere */
+.recruit-page img,.explore-page img,.progress-page img,.season-card img,.home-gallery img{display:block}
+.daily-grid img,.records-grid img,.learn-more-grid img,.gallery-grid img{width:100%;aspect-ratio:4/3;object-fit:cover;object-position:center;border-radius:22px}
+
+@media(max-width:900px){
+.nav-wrap{height:64px}.hero-content{padding-top:150px}.about,.home-gallery,.archive,.contact,.custom-page{padding:90px 20px}.stats{grid-template-columns:1fr}.season-grid,.recruit-cards{grid-template-columns:1fr}.home-gallery-viewport{border-radius:20px}.home-gallery-slide{aspect-ratio:4/3}.home-gallery-slide figcaption{grid-template-columns:1fr;gap:8px}.home-gallery-slide figcaption>span,.home-gallery-slide figcaption>strong{display:none}.recruit-cards article{min-height:280px}.recruit-cards article h3{margin-top:45px}.photo-copy{top:48%}.photo-copy span{font-size:17px}.progress-list article{grid-template-columns:48px 1fr}.progress-list article>strong{display:none}}
