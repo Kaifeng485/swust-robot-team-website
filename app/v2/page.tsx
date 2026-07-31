@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { defaultContent } from "../site-content";
 import "./v2.css";
+import "./v2-polish.css";
 
 const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
 const asset = (path: string) => (path.startsWith("/") ? `${basePath}${path}` : path);
