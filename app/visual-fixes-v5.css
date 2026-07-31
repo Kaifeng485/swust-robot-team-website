@@ -1,0 +1,209 @@
+/* V5 visual corrections: stable navigation, refined media, full-bleed join section */
+
+/* 1. Navigation must always stay above page media and text */
+.nav-wrap,
+.inner-nav {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  z-index: 10000 !important;
+  isolation: isolate;
+  transform: translateZ(0);
+  background: rgba(3, 7, 15, .88) !important;
+  border-bottom: 1px solid rgba(111, 181, 255, .18) !important;
+  box-shadow: 0 12px 42px rgba(0, 0, 0, .28) !important;
+  backdrop-filter: saturate(150%) blur(26px) !important;
+  -webkit-backdrop-filter: saturate(150%) blur(26px) !important;
+}
+.nav-wrap::after,
+.inner-nav::after {
+  content: "";
+  position: absolute;
+  inset: auto 0 -1px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(61, 153, 255, .7), transparent);
+  pointer-events: none;
+}
+.nav-links,
+.nav-item,
+.brand,
+.menu-button { position: relative; z-index: 2; }
+.nav-dropdown { z-index: 10020 !important; }
+.hero-picture,
+.hero-overlay,
+.photo-slide,
+.home-gallery-slide,
+.card-visual { z-index: auto; }
+
+/* Give fixed navigation real breathing space on inner pages */
+.inner-page,
+.recruit-page { padding-top: 64px; }
+
+/* 2. A more pleasing, consistent photographic system */
+.home-gallery-viewport {
+  max-width: 1180px !important;
+  border-radius: 26px !important;
+  background: #07090d !important;
+  box-shadow: 0 28px 80px rgba(0, 0, 0, .38) !important;
+}
+.home-gallery-slide {
+  aspect-ratio: 3 / 2 !important;
+  min-height: 0 !important;
+  max-height: 720px;
+  background: #0a0d13 !important;
+}
+.home-gallery-slide > img,
+.card-visual img,
+.photo-slide img,
+.daily-grid img,
+.records-grid img,
+.learn-more-grid img,
+.gallery-grid img {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  object-position: center 42% !important;
+  filter: saturate(.92) contrast(1.035) brightness(.96) !important;
+}
+.home-gallery-slide::after {
+  background: linear-gradient(180deg, transparent 58%, rgba(2, 5, 10, .72)) !important;
+}
+.home-gallery-slide figcaption {
+  bottom: 26px !important;
+}
+
+.season-grid { align-items: stretch; }
+.season-card {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+}
+.card-visual {
+  aspect-ratio: 3 / 2 !important;
+  height: auto !important;
+  flex: 0 0 auto;
+}
+.card-copy { flex: 1; display: flex; flex-direction: column; }
+.card-copy button { margin-top: auto; }
+
+.daily-grid img,
+.records-grid img,
+.learn-more-grid img,
+.gallery-grid img {
+  aspect-ratio: 3 / 2 !important;
+  border-radius: 20px !important;
+}
+
+/* Hero and explore photos get intentional crops instead of arbitrary stretching */
+.hero-photo { object-position: center 46% !important; }
+.photo-slide img { object-position: center 45% !important; }
+
+/* 3. Homepage JOIN section: full bleed, no enclosing card */
+.contact {
+  position: relative !important;
+  width: 100% !important;
+  min-height: 100svh !important;
+  margin: 0 !important;
+  padding: clamp(120px, 15vw, 210px) max(24px, calc((100vw - 1180px) / 2)) !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  overflow: hidden !important;
+  display: flex !important;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background:
+    radial-gradient(circle at 50% 48%, rgba(25, 116, 255, .22), transparent 31%),
+    radial-gradient(circle at 50% 115%, rgba(0, 176, 255, .18), transparent 38%),
+    linear-gradient(180deg, #020611 0%, #061027 48%, #020611 100%) !important;
+}
+.contact::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: .34;
+  background-image:
+    linear-gradient(rgba(74, 146, 255, .08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(74, 146, 255, .08) 1px, transparent 1px);
+  background-size: 54px 54px;
+  mask-image: radial-gradient(circle at center, black, transparent 78%);
+}
+.contact::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: min(70vw, 860px);
+  aspect-ratio: 1;
+  border: 1px solid rgba(73, 158, 255, .22);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  box-shadow:
+    0 0 0 70px rgba(39, 128, 255, .035),
+    0 0 0 145px rgba(39, 128, 255, .025),
+    0 0 90px rgba(44, 140, 255, .16);
+  pointer-events: none;
+}
+.contact > *:not(.contact-circuit) { position: relative; z-index: 3; }
+.contact h2 { max-width: 980px; font-size: clamp(52px, 8vw, 112px); line-height: .98; letter-spacing: -.065em; }
+.contact p { max-width: 720px; margin-left: auto; margin-right: auto; }
+.contact-circuit {
+  position: absolute !important;
+  inset: 0 !important;
+  z-index: 2 !important;
+  opacity: .9 !important;
+  pointer-events: none;
+}
+.contact-circuit svg { width: 100%; height: 100%; overflow: visible; }
+.contact-circuit .circuit-traces path {
+  fill: none;
+  stroke: rgba(60, 159, 255, .62) !important;
+  stroke-width: 1.15 !important;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  filter: drop-shadow(0 0 6px rgba(35, 142, 255, .68));
+  stroke-dasharray: 10 8;
+  animation: circuit-flow 9s linear infinite;
+}
+.contact-circuit circle,
+.contact-circuit .circuit-nodes circle {
+  fill: #72c7ff !important;
+  filter: drop-shadow(0 0 7px #2997ff);
+}
+@keyframes circuit-flow { to { stroke-dashoffset: -180; } }
+
+/* Recruitment application section also remains edge-to-edge */
+.recruit-apply {
+  width: 100% !important;
+  min-height: 88svh !important;
+  margin: 0 !important;
+  padding: clamp(120px, 14vw, 190px) 24px !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  background:
+    radial-gradient(circle at 50% 42%, rgba(37, 135, 255, .24), transparent 34%),
+    linear-gradient(180deg, #020611, #07142d 52%, #020611) !important;
+}
+
+@media (max-width: 900px) {
+  .nav-wrap,
+  .inner-nav { height: 64px !important; }
+  .home-gallery-slide,
+  .card-visual,
+  .daily-grid img,
+  .records-grid img,
+  .learn-more-grid img,
+  .gallery-grid img { aspect-ratio: 4 / 3 !important; }
+  .home-gallery-viewport { border-radius: 18px !important; }
+  .contact { min-height: 92svh !important; padding: 110px 22px !important; }
+  .contact::after { width: 110vw; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .contact-circuit .circuit-traces path { animation: none; }
+}
