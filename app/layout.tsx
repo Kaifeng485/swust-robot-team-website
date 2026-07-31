@@ -6,6 +6,7 @@ import "./mobile-performance-nav.css";
 import "./theme-refinements.css";
 import "./tech-theme-v2.css";
 import "./reference-layout.css";
+import "./apple-tech-v3.css";
 import MobileNavEnhancer from "./MobileNavEnhancer";
 
 const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
