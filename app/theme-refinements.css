@@ -1,0 +1,88 @@
+/* Theme refinements: premium About background and resume email CTA. */
+.about {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 18% 22%, rgba(38, 104, 255, .11), transparent 28%),
+    radial-gradient(circle at 82% 76%, rgba(0, 191, 255, .07), transparent 30%),
+    linear-gradient(135deg, rgba(5, 10, 18, .98), rgba(8, 13, 22, .98));
+}
+
+.about::before,
+.about::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+}
+
+.about::before {
+  opacity: .42;
+  background-image:
+    linear-gradient(rgba(87, 136, 214, .055) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(87, 136, 214, .055) 1px, transparent 1px),
+    linear-gradient(135deg, transparent 0 47%, rgba(61, 132, 255, .08) 48% 49%, transparent 50% 100%);
+  background-size: 48px 48px, 48px 48px, 280px 280px;
+  mask-image: linear-gradient(90deg, rgba(0,0,0,.9), rgba(0,0,0,.24) 48%, rgba(0,0,0,.72));
+  -webkit-mask-image: linear-gradient(90deg, rgba(0,0,0,.9), rgba(0,0,0,.24) 48%, rgba(0,0,0,.72));
+}
+
+.about::after {
+  inset: 10% 4%;
+  opacity: .56;
+  background:
+    radial-gradient(circle at 8% 20%, rgba(104, 169, 255, .85) 0 2px, transparent 3px),
+    radial-gradient(circle at 28% 82%, rgba(74, 141, 255, .7) 0 2px, transparent 3px),
+    radial-gradient(circle at 76% 18%, rgba(0, 190, 255, .65) 0 2px, transparent 3px),
+    radial-gradient(circle at 92% 70%, rgba(89, 151, 255, .65) 0 2px, transparent 3px),
+    linear-gradient(135deg, transparent 0 22%, rgba(69, 128, 220, .13) 22.2% 22.5%, transparent 22.8% 100%),
+    linear-gradient(45deg, transparent 0 72%, rgba(48, 119, 255, .1) 72.2% 72.5%, transparent 72.8% 100%);
+}
+
+.about > div {
+  position: relative;
+  z-index: 1;
+}
+
+.contact .primary.light {
+  color: var(--yellow) !important;
+  background: linear-gradient(135deg, #0b56d8, #1677ff) !important;
+  border-color: rgba(79, 151, 255, .92) !important;
+  box-shadow:
+    0 14px 34px rgba(0, 83, 214, .28),
+    inset 0 1px 0 rgba(255,255,255,.18);
+}
+
+.contact .primary.light svg {
+  stroke: var(--yellow) !important;
+}
+
+.contact .primary.light:hover {
+  color: var(--yellow) !important;
+  background: linear-gradient(135deg, #1267ed, #2585ff) !important;
+  border-color: rgba(109, 174, 255, 1) !important;
+  box-shadow:
+    0 18px 42px rgba(0, 102, 255, .34),
+    inset 0 1px 0 rgba(255,255,255,.22);
+}
+
+@media (max-width: 850px) {
+  .about::before {
+    opacity: .32;
+    background-size: 38px 38px, 38px 38px, 220px 220px;
+  }
+
+  .about::after {
+    inset: 7% -12%;
+    opacity: .44;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .about::before,
+  .about::after {
+    animation: none !important;
+  }
+}
