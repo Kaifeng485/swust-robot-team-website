@@ -1,0 +1,141 @@
+/* Join section adopts the supplied circuit-and-logo composition */
+.contact {
+  position: relative !important;
+  min-height: 100svh !important;
+  width: 100% !important;
+  margin: 0 !important;
+  padding: clamp(130px, 15vw, 210px) 24px !important;
+  overflow: hidden !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  text-align: center !important;
+  isolation: isolate !important;
+  background:
+    radial-gradient(circle at 50% 46%, rgba(35, 70, 180, .20), transparent 33%),
+    linear-gradient(180deg, #090d19 0%, #080c16 56%, #050810 100%) !important;
+}
+
+/* soft central glow behind the team emblem */
+.contact::after {
+  content: "" !important;
+  position: absolute !important;
+  left: 50% !important;
+  top: 50% !important;
+  width: min(70vw, 900px) !important;
+  aspect-ratio: 1 !important;
+  transform: translate(-50%, -50%) !important;
+  border-radius: 50% !important;
+  background: radial-gradient(circle, rgba(38, 63, 183, .22), rgba(19, 39, 120, .10) 38%, transparent 70%) !important;
+  filter: blur(12px) !important;
+  pointer-events: none !important;
+  z-index: -2 !important;
+}
+
+/* use the existing logo as the large centre background mark */
+.contact > img {
+  position: absolute !important;
+  left: 50% !important;
+  top: 50% !important;
+  width: min(48vw, 650px) !important;
+  max-height: 72vh !important;
+  object-fit: contain !important;
+  transform: translate(-50%, -50%) !important;
+  opacity: .34 !important;
+  filter:
+    brightness(.95)
+    saturate(1.2)
+    drop-shadow(0 0 16px rgba(75, 89, 255, .75))
+    drop-shadow(0 0 42px rgba(44, 78, 255, .32)) !important;
+  z-index: -1 !important;
+  pointer-events: none !important;
+}
+
+/* circuit lines fill the whole screen like the reference */
+.contact-circuit {
+  position: absolute !important;
+  inset: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  z-index: -1 !important;
+  opacity: .82 !important;
+  pointer-events: none !important;
+}
+.contact-circuit svg {
+  width: 100% !important;
+  height: 100% !important;
+  overflow: visible !important;
+}
+.contact-circuit .circuit-traces path {
+  fill: none !important;
+  stroke: rgba(52, 202, 214, .70) !important;
+  stroke-width: 1.25 !important;
+  stroke-linecap: round !important;
+  stroke-linejoin: round !important;
+  stroke-dasharray: none !important;
+  animation: none !important;
+  filter: drop-shadow(0 0 5px rgba(32, 196, 211, .52)) !important;
+}
+.contact-circuit circle,
+.contact-circuit .circuit-nodes circle {
+  fill: #091420 !important;
+  stroke: rgba(52, 202, 214, .95) !important;
+  stroke-width: 1.4 !important;
+  filter: drop-shadow(0 0 5px rgba(52, 202, 214, .8)) !important;
+}
+
+/* foreground content */
+.contact > *:not(img):not(.contact-circuit) {
+  position: relative !important;
+  z-index: 3 !important;
+}
+.contact .eyebrow {
+  color: #ffd60a !important;
+  letter-spacing: .28em !important;
+  margin-bottom: 22px !important;
+}
+.contact h2 {
+  max-width: 1180px !important;
+  margin: 0 auto !important;
+  font-size: clamp(48px, 6.4vw, 96px) !important;
+  line-height: 1.05 !important;
+  letter-spacing: -.055em !important;
+  color: #f5f7fb !important;
+  text-shadow: 0 3px 28px rgba(0, 0, 0, .54) !important;
+}
+.contact p {
+  max-width: 760px !important;
+  margin: 30px auto 38px !important;
+  color: rgba(226, 232, 244, .72) !important;
+  font-size: clamp(16px, 1.35vw, 20px) !important;
+  line-height: 1.8 !important;
+  text-shadow: 0 2px 18px rgba(0, 0, 0, .72) !important;
+}
+.contact .primary,
+.contact a.primary {
+  min-width: 225px !important;
+  min-height: 58px !important;
+  border-radius: 0 !important;
+  background: linear-gradient(90deg, #2858e8, #2e79ff) !important;
+  color: #ffe600 !important;
+  box-shadow: 0 12px 40px rgba(17, 67, 214, .30) !important;
+}
+
+@media (max-width: 900px) {
+  .contact {
+    min-height: 92svh !important;
+    padding: 110px 20px 90px !important;
+  }
+  .contact > img {
+    width: min(92vw, 560px) !important;
+    opacity: .27 !important;
+  }
+  .contact-circuit {
+    transform: scale(1.32) !important;
+    opacity: .56 !important;
+  }
+  .contact h2 {
+    font-size: clamp(40px, 12vw, 66px) !important;
+  }
+}
