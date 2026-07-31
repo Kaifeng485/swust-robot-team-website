@@ -1,0 +1,206 @@
+/* Refined mobile-only Join Us composition and synchronized breathing light. */
+@media (max-width: 850px) {
+  .contact {
+    min-height: 700px;
+    padding: 118px 20px 108px;
+    background:
+      radial-gradient(circle at 50% 47%, rgba(42, 87, 255, .12), transparent 30%),
+      radial-gradient(circle at 50% 50%, rgba(0, 159, 255, .055), transparent 52%),
+      #07090e;
+  }
+
+  .contact::before,
+  .contact::after {
+    content: "";
+    position: absolute;
+    z-index: 0;
+    left: 50%;
+    top: 50%;
+    pointer-events: none;
+    border-radius: 50%;
+    transform: translate3d(-50%, -50%, 0);
+  }
+
+  .contact::before {
+    width: min(440px, 88vw);
+    aspect-ratio: 1;
+    border: 1px solid rgba(70, 139, 255, .09);
+    box-shadow:
+      0 0 44px rgba(30, 91, 255, .035),
+      inset 0 0 52px rgba(31, 95, 255, .025);
+    animation: mobile-contact-breathe-ring 7.2s cubic-bezier(.45, 0, .55, 1) infinite;
+  }
+
+  .contact::after {
+    width: min(310px, 66vw);
+    aspect-ratio: 1;
+    background: radial-gradient(circle, rgba(35, 102, 255, .11), rgba(20, 58, 180, .025) 52%, transparent 72%);
+    filter: blur(14px);
+    animation: mobile-contact-breathe-aura 7.2s cubic-bezier(.45, 0, .55, 1) infinite;
+  }
+
+  .contact-circuit {
+    inset: 1% -32%;
+    opacity: .16;
+    overflow: visible;
+    mask-image: radial-gradient(ellipse 31% 39% at 50% 50%, transparent 0 56%, rgba(0,0,0,.12) 64%, rgba(0,0,0,.88) 80%, #000 100%);
+    -webkit-mask-image: radial-gradient(ellipse 31% 39% at 50% 50%, transparent 0 56%, rgba(0,0,0,.12) 64%, rgba(0,0,0,.88) 80%, #000 100%);
+    animation: mobile-contact-breathe-lines 7.2s cubic-bezier(.45, 0, .55, 1) infinite !important;
+    will-change: opacity;
+  }
+
+  .contact-circuit svg {
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+    transform: scale(.94, 1.08);
+    transform-origin: 50% 50%;
+  }
+
+  .circuit-traces {
+    stroke-width: 1.05;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .circuit-traces path {
+    opacity: .68;
+    vector-effect: non-scaling-stroke;
+  }
+
+  .circuit-traces path:nth-child(3n + 1) {
+    opacity: .92;
+  }
+
+  .circuit-traces path:nth-child(3n + 2) {
+    opacity: .46;
+  }
+
+  .circuit-traces path:nth-child(4n) {
+    opacity: .28;
+  }
+
+  .circuit-nodes {
+    opacity: .72;
+    transform-box: fill-box;
+    transform-origin: center;
+    animation: mobile-contact-breathe-nodes 7.2s cubic-bezier(.45, 0, .55, 1) infinite;
+  }
+
+  .contact > img {
+    width: min(420px, 78vw);
+    max-height: 60%;
+    opacity: .08;
+    filter:
+      brightness(.72)
+      saturate(.96)
+      drop-shadow(0 0 6px rgba(54, 132, 255, .2));
+    transform: translate3d(-50%, -50%, 0) scale(.965);
+    animation: mobile-contact-breathe-logo 7.2s cubic-bezier(.45, 0, .55, 1) infinite !important;
+    will-change: opacity, filter, transform;
+  }
+
+  .contact .eyebrow,
+  .contact h2,
+  .contact > p:not(.eyebrow),
+  .contact .primary {
+    text-shadow: 0 2px 24px rgba(0, 0, 0, .62);
+  }
+}
+
+@media (max-width: 520px) {
+  .contact {
+    min-height: 650px;
+    padding: 104px 18px 94px;
+  }
+
+  .contact-circuit {
+    inset: 4% -58%;
+  }
+
+  .contact-circuit svg {
+    transform: scale(.88, 1.12);
+  }
+
+  /* Remove a few dense secondary branches on narrow portrait screens. */
+  .circuit-traces path:nth-child(5n),
+  .circuit-traces path:nth-child(7n + 2) {
+    opacity: .08;
+  }
+
+  .contact > img {
+    width: min(350px, 82vw);
+    max-height: 56%;
+  }
+
+  .contact::before {
+    width: min(360px, 90vw);
+  }
+
+  .contact::after {
+    width: min(260px, 66vw);
+  }
+}
+
+@keyframes mobile-contact-breathe-logo {
+  0%, 100% {
+    opacity: .055;
+    filter: brightness(.58) saturate(.88) drop-shadow(0 0 3px rgba(49, 126, 255, .12));
+    transform: translate3d(-50%, -50%, 0) scale(.955);
+  }
+  42% {
+    opacity: .19;
+    filter: brightness(.96) saturate(1.08) drop-shadow(0 0 13px rgba(67, 148, 255, .48));
+    transform: translate3d(-50%, -50%, 0) scale(1);
+  }
+  58% {
+    opacity: .19;
+    filter: brightness(.96) saturate(1.08) drop-shadow(0 0 13px rgba(67, 148, 255, .48));
+    transform: translate3d(-50%, -50%, 0) scale(1);
+  }
+}
+
+@keyframes mobile-contact-breathe-lines {
+  0%, 100% { opacity: .045; }
+  42%, 58% { opacity: .42; }
+}
+
+@keyframes mobile-contact-breathe-nodes {
+  0%, 100% { opacity: .18; }
+  42%, 58% { opacity: .95; }
+}
+
+@keyframes mobile-contact-breathe-ring {
+  0%, 100% {
+    opacity: .12;
+    transform: translate3d(-50%, -50%, 0) scale(.965);
+  }
+  42%, 58% {
+    opacity: .62;
+    transform: translate3d(-50%, -50%, 0) scale(1.015);
+  }
+}
+
+@keyframes mobile-contact-breathe-aura {
+  0%, 100% {
+    opacity: .08;
+    transform: translate3d(-50%, -50%, 0) scale(.9);
+  }
+  42%, 58% {
+    opacity: .72;
+    transform: translate3d(-50%, -50%, 0) scale(1.08);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .contact::before,
+  .contact::after,
+  .contact-circuit,
+  .circuit-nodes,
+  .contact > img {
+    animation: none !important;
+  }
+
+  .contact-circuit { opacity: .18; }
+  .contact > img { opacity: .13; }
+}
