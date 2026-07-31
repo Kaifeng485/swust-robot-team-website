@@ -1,0 +1,33 @@
+/* Mobile navigation consistency and image rendering safeguards. */
+@media (max-width: 850px) {
+  .nav-links,
+  .nav-links.open,
+  .nav-links > .nav-item,
+  .nav-links > .nav-item.mobile-expanded,
+  .nav-links > .nav-item .nav-dropdown,
+  .nav-links > .nav-item.dropdown-suppressed .nav-dropdown,
+  .nav-links > .nav-item.mobile-expanded .nav-dropdown,
+  .nav-links > .nav-item.mobile-expanded.dropdown-suppressed .nav-dropdown {
+    background: rgba(6, 9, 14, .97) !important;
+  }
+
+  .nav-dropdown a,
+  .nav-dropdown button {
+    background: transparent !important;
+  }
+
+  .nav-dropdown a:active,
+  .nav-dropdown button:active,
+  .nav-dropdown a:focus-visible,
+  .nav-dropdown button:focus-visible {
+    background: rgba(255, 255, 255, .045) !important;
+  }
+
+  .home-gallery-slide img,
+  .season-card img,
+  .custom-page > img,
+  .contact > img {
+    content-visibility: auto;
+    contain-intrinsic-size: 480px 320px;
+  }
+}
