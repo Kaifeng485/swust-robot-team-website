@@ -1,0 +1,292 @@
+/* Dark navy technology theme v2 — visual overrides only. */
+:root {
+  --tech-bg: #030817;
+  --tech-bg-soft: #061126;
+  --tech-panel: rgba(5, 17, 42, .86);
+  --tech-line: rgba(30, 138, 255, .32);
+  --tech-line-soft: rgba(30, 138, 255, .11);
+  --tech-blue: #1687ff;
+  --tech-blue-light: #62b8ff;
+  --tech-yellow: #ffd51f;
+}
+
+/* Primary resume CTA: yellow button and black text. */
+.contact .primary.light {
+  color: #05070b !important;
+  background: linear-gradient(135deg, #ffe75a 0%, #ffd51f 48%, #ffbf00 100%) !important;
+  border: 1px solid rgba(255, 237, 104, .9) !important;
+  box-shadow:
+    0 10px 32px rgba(255, 195, 0, .2),
+    inset 0 1px 0 rgba(255, 255, 255, .6) !important;
+  text-shadow: none !important;
+}
+
+.contact .primary.light svg,
+.contact .primary.light svg path {
+  stroke: #05070b !important;
+}
+
+.contact .primary.light:hover {
+  background: linear-gradient(135deg, #fff17b 0%, #ffdd2f 50%, #ffc400 100%) !important;
+  box-shadow:
+    0 14px 42px rgba(255, 203, 0, .3),
+    inset 0 1px 0 rgba(255, 255, 255, .72) !important;
+}
+
+/* Shared deep-space section background. */
+.home-gallery,
+.archive {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 12% 15%, rgba(0, 102, 255, .14), transparent 27%),
+    radial-gradient(circle at 88% 82%, rgba(0, 147, 255, .1), transparent 30%),
+    linear-gradient(180deg, #041126 0%, #020817 100%) !important;
+}
+
+.home-gallery::before,
+.archive::before {
+  content: "";
+  position: absolute;
+  z-index: -2;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(rgba(25, 132, 255, .055) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(25, 132, 255, .055) 1px, transparent 1px),
+    linear-gradient(135deg, transparent 0 46%, rgba(34, 143, 255, .08) 46% 46.2%, transparent 46.2% 100%);
+  background-size: 56px 56px, 56px 56px, 240px 240px;
+  mask-image: linear-gradient(to bottom, transparent, #000 12%, #000 88%, transparent);
+  -webkit-mask-image: linear-gradient(to bottom, transparent, #000 12%, #000 88%, transparent);
+}
+
+.home-gallery::after,
+.archive::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  width: 560px;
+  aspect-ratio: 1;
+  right: -180px;
+  top: 50%;
+  transform: translateY(-50%);
+  border-radius: 50%;
+  border: 1px solid rgba(45, 154, 255, .13);
+  box-shadow:
+    0 0 0 36px rgba(28, 120, 255, .025),
+    0 0 0 84px rgba(28, 120, 255, .018),
+    inset 0 0 80px rgba(28, 120, 255, .05);
+}
+
+.archive::after {
+  right: auto;
+  left: -220px;
+  top: 35%;
+}
+
+.home-gallery-head,
+.archive-head {
+  position: relative;
+  z-index: 1;
+}
+
+.home-gallery-head h2,
+.archive-head h2 {
+  position: relative;
+  display: inline-block;
+}
+
+.home-gallery-head h2::after,
+.archive-head h2::after {
+  content: "";
+  display: block;
+  width: 56px;
+  height: 3px;
+  margin-top: 14px;
+  background: var(--tech-yellow);
+  box-shadow: 0 0 16px rgba(255, 213, 31, .5);
+}
+
+/* Larger gallery stage while keeping every photo completely visible. */
+.home-gallery {
+  padding-top: clamp(100px, 9vw, 150px) !important;
+  padding-bottom: clamp(110px, 10vw, 170px) !important;
+}
+
+.home-gallery-viewport {
+  width: min(1540px, calc(100vw - 64px)) !important;
+  margin-inline: auto !important;
+  min-height: clamp(520px, 65vw, 820px);
+  border: 1px solid rgba(45, 154, 255, .34);
+  border-radius: 24px;
+  background:
+    radial-gradient(circle at center, rgba(20, 105, 255, .11), transparent 58%),
+    rgba(2, 8, 24, .78);
+  box-shadow:
+    0 28px 90px rgba(0, 0, 0, .46),
+    inset 0 0 70px rgba(18, 108, 255, .04);
+  overflow: hidden;
+}
+
+.home-gallery-slide {
+  min-height: clamp(520px, 65vw, 820px) !important;
+  background: transparent !important;
+}
+
+.home-gallery-slide > img {
+  width: 100% !important;
+  height: 100% !important;
+  min-height: clamp(520px, 65vw, 820px);
+  object-fit: contain !important;
+  object-position: center !important;
+  background: rgba(1, 5, 15, .9);
+}
+
+.home-gallery-slide figcaption {
+  background: linear-gradient(to top, rgba(0, 5, 17, .95), rgba(0, 5, 17, .06) 80%) !important;
+}
+
+.gallery-arrow {
+  background: rgba(5, 18, 45, .82) !important;
+  border: 1px solid rgba(77, 174, 255, .5) !important;
+  box-shadow: 0 0 24px rgba(0, 119, 255, .15);
+  backdrop-filter: blur(12px);
+}
+
+.gallery-dots button.active {
+  background: var(--tech-yellow) !important;
+  box-shadow: 0 0 14px rgba(255, 213, 31, .55);
+}
+
+/* Competition archive: luminous tech cards. */
+.archive {
+  padding-top: clamp(100px, 9vw, 150px) !important;
+  padding-bottom: clamp(110px, 10vw, 170px) !important;
+  border-top: 1px solid rgba(38, 142, 255, .18);
+}
+
+.season-grid {
+  position: relative;
+  z-index: 1;
+  gap: clamp(22px, 2.3vw, 38px) !important;
+}
+
+.season-card {
+  overflow: hidden;
+  border: 1px solid rgba(52, 158, 255, .28) !important;
+  border-radius: 18px !important;
+  background: linear-gradient(180deg, rgba(7, 25, 57, .88), rgba(3, 12, 30, .92)) !important;
+  box-shadow:
+    0 22px 60px rgba(0, 0, 0, .28),
+    inset 0 1px 0 rgba(119, 194, 255, .08);
+  transition: transform .35s ease, border-color .35s ease, box-shadow .35s ease;
+}
+
+.season-card:hover {
+  transform: translateY(-7px);
+  border-color: rgba(72, 176, 255, .68) !important;
+  box-shadow:
+    0 30px 72px rgba(0, 0, 0, .38),
+    0 0 30px rgba(0, 119, 255, .13);
+}
+
+.card-visual {
+  background: #020714 !important;
+}
+
+.card-visual img {
+  object-fit: contain !important;
+  background: #020714;
+}
+
+.card-copy {
+  border-top: 1px solid rgba(52, 158, 255, .18);
+}
+
+.card-copy button:not(:disabled) {
+  color: var(--tech-yellow) !important;
+}
+
+.card-play {
+  border: 1px solid rgba(255,255,255,.72) !important;
+  background: rgba(0, 7, 22, .66) !important;
+  box-shadow: 0 0 30px rgba(0, 119, 255, .3);
+  backdrop-filter: blur(8px);
+}
+
+/* Preserve the Join Us composition and circuit aspect ratio. */
+.contact {
+  min-height: clamp(680px, 46.875vw, 900px) !important;
+  aspect-ratio: 32 / 15;
+  height: auto !important;
+  overflow: hidden;
+}
+
+.contact-circuit {
+  position: absolute !important;
+  left: 50% !important;
+  top: 50% !important;
+  width: max(100%, calc(100vh * 32 / 15)) !important;
+  height: auto !important;
+  aspect-ratio: 32 / 15 !important;
+  inset: auto !important;
+  transform: translate(-50%, -50%) !important;
+  overflow: hidden !important;
+}
+
+.contact-circuit svg {
+  display: block;
+  width: 100% !important;
+  height: 100% !important;
+  transform: none !important;
+  overflow: visible;
+}
+
+@media (max-width: 850px) {
+  .home-gallery,
+  .archive {
+    padding: 92px 18px 104px !important;
+  }
+
+  .home-gallery-viewport {
+    width: 100% !important;
+    min-height: clamp(420px, 122vw, 680px);
+    border-radius: 16px;
+  }
+
+  .home-gallery-slide,
+  .home-gallery-slide > img {
+    min-height: clamp(420px, 122vw, 680px) !important;
+  }
+
+  .home-gallery-slide > img {
+    padding: 8px;
+  }
+
+  .season-grid {
+    gap: 22px !important;
+  }
+
+  .contact {
+    aspect-ratio: auto;
+    min-height: 650px !important;
+  }
+
+  .contact-circuit {
+    width: max(1180px, calc(100vh * 32 / 15)) !important;
+    max-width: none !important;
+  }
+}
+
+@media (max-width: 520px) {
+  .home-gallery-viewport,
+  .home-gallery-slide,
+  .home-gallery-slide > img {
+    min-height: clamp(390px, 128vw, 610px) !important;
+  }
+
+  .home-gallery-slide figcaption {
+    padding: 80px 18px 22px !important;
+  }
+}
