@@ -36,19 +36,49 @@ export default function V2Page() {
       <section className="v2-hero">
         <div className="v2-grid" />
         <div className="v2-noise" />
+
         <div className="v2-hero-media">
-          <img src={asset(defaultContent.heroBackgroundImage || "/gate.webp")} alt="机器人小组" />
+          <img
+            src={asset(defaultContent.heroBackgroundImage || "/gate.webp")}
+            alt="西南科技大学机器人小组"
+          />
         </div>
+
         <div className="v2-hero-shade" />
+
         <div className="v2-hero-copy">
-          <p className="v2-overline">SOUTHWEST UNIVERSITY OF SCIENCE AND TECHNOLOGY</p>
-          <img className="v2-hero-calligraphy" src={asset("/robot-team-calligraphy.svg")} alt="机器人小组" />
-          <h1><span>BUILD</span><span>INTELLIGENCE</span><span>INTO MOTION.</span></h1>
+          <p className="v2-overline">
+            SOUTHWEST UNIVERSITY OF SCIENCE AND TECHNOLOGY
+          </p>
+
+          <div className="v2-hero-title-group">
+            <img
+              className="v2-hero-calligraphy"
+              src={asset("/robot-team-calligraphy.svg")}
+              alt="机器人小组"
+              width="1600"
+              height="271"
+              draggable={false}
+            />
+
+            <h1 className="v2-hero-english-title">
+              <span>BUILD INTELLIGENCE</span>
+              <span>INTO MOTION.</span>
+            </h1>
+          </div>
+
           <div className="v2-hero-bottom">
-            <p>西南科技大学机器人小组<br />用机械赋予力量，用代码注入灵魂。</p>
-            <a href="#manifesto">SCROLL TO EXPLORE <b>↓</b></a>
+            <p>
+              西南科技大学机器人小组
+              <br />
+              用机械赋予力量，用代码注入灵魂。
+            </p>
+            <a href="#manifesto">
+              SCROLL TO EXPLORE <b>↓</b>
+            </a>
           </div>
         </div>
+
         <span className="v2-coordinate left">31.534° N</span>
         <span className="v2-coordinate right">104.697° E</span>
       </section>
