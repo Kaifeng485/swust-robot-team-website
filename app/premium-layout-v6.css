@@ -1,0 +1,204 @@
+/* V6: clearer hierarchy, cleaner imagery, full-bleed technology sections */
+
+:root {
+  --v6-bg: #02050b;
+  --v6-panel: #0b1220;
+  --v6-text: #f5f7fb;
+  --v6-muted: #9aa6b8;
+  --v6-blue: #58a6ff;
+  --v6-cyan: #46d7ff;
+  --v6-yellow: #ffd84d;
+}
+
+body { background: var(--v6-bg); }
+
+/* Navigation: fully protected from all page layers */
+.nav-wrap,
+.inner-nav {
+  z-index: 2147483000 !important;
+  background: rgba(2, 5, 11, .96) !important;
+  border-bottom: 1px solid rgba(116, 181, 255, .16) !important;
+  box-shadow: 0 8px 36px rgba(0,0,0,.38) !important;
+  backdrop-filter: blur(18px) saturate(150%) !important;
+  -webkit-backdrop-filter: blur(18px) saturate(150%) !important;
+}
+.nav-wrap { isolation: isolate; }
+.nav-wrap *, .inner-nav * { z-index: 2; }
+.nav-dropdown {
+  z-index: 2147483640 !important;
+  background: rgba(6, 10, 18, .98) !important;
+  box-shadow: 0 22px 60px rgba(0,0,0,.55) !important;
+}
+
+/* Hero: more restrained, Apple-like spacing */
+.hero-content {
+  max-width: 1040px !important;
+  padding-top: clamp(185px, 24vh, 255px) !important;
+  padding-bottom: 130px !important;
+}
+.hero-text { max-width: 680px; }
+.hero-photo {
+  filter: brightness(.56) saturate(.86) contrast(1.08) !important;
+  object-position: center 45% !important;
+}
+.hero-overlay {
+  background:
+    radial-gradient(circle at 50% 42%, rgba(26, 102, 255, .11), transparent 38%),
+    linear-gradient(180deg, rgba(0,0,0,.15), rgba(0,0,0,.08) 43%, #02050b 100%) !important;
+}
+
+/* Unified section rhythm */
+.about,
+.home-gallery,
+.archive {
+  padding-top: clamp(110px, 12vw, 170px) !important;
+  padding-bottom: clamp(110px, 12vw, 170px) !important;
+}
+.home-gallery-head,
+.archive-head { max-width: 900px; margin-left: auto; margin-right: auto; }
+
+/* Images: consistent frame, crop and visual tone */
+.home-gallery-viewport {
+  width: min(1180px, calc(100vw - 48px)) !important;
+  border-radius: 34px !important;
+  overflow: hidden !important;
+  border: 1px solid rgba(255,255,255,.08) !important;
+}
+.home-gallery-slide {
+  aspect-ratio: 16 / 10 !important;
+  background: #080d16 !important;
+}
+.home-gallery-slide > img {
+  object-fit: cover !important;
+  object-position: center 44% !important;
+  filter: brightness(.9) contrast(1.05) saturate(.9) !important;
+}
+.home-gallery-slide figcaption {
+  padding: 20px 24px;
+  border-radius: 20px;
+  background: linear-gradient(90deg, rgba(2,5,11,.72), rgba(2,5,11,.18));
+  backdrop-filter: blur(10px);
+}
+
+.season-grid { gap: 26px !important; }
+.season-card {
+  border-radius: 30px !important;
+  overflow: hidden !important;
+  border: 1px solid rgba(15, 23, 42, .08) !important;
+}
+.card-visual { aspect-ratio: 16 / 10 !important; }
+.card-visual img {
+  object-fit: cover !important;
+  object-position: center 46% !important;
+  filter: brightness(.88) contrast(1.04) saturate(.92) !important;
+}
+.card-copy { min-height: 180px; }
+
+.daily-grid,
+.records-grid,
+.learn-more-grid,
+.gallery-grid {
+  display: grid !important;
+  grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+  gap: 22px !important;
+}
+.daily-grid img,
+.records-grid img,
+.learn-more-grid img,
+.gallery-grid img {
+  display: block !important;
+  width: 100% !important;
+  aspect-ratio: 4 / 3 !important;
+  object-fit: cover !important;
+  object-position: center 44% !important;
+  border-radius: 24px !important;
+  filter: brightness(.94) contrast(1.035) saturate(.92) !important;
+}
+
+/* Join us: completely full bleed, no card boundary */
+.contact {
+  width: 100vw !important;
+  max-width: none !important;
+  min-height: 100svh !important;
+  margin: 0 !important;
+  margin-left: calc(50% - 50vw) !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  padding: clamp(130px, 15vw, 220px) max(24px, calc((100vw - 1180px)/2)) !important;
+  background:
+    radial-gradient(circle at 50% 44%, rgba(29, 114, 255, .28), transparent 31%),
+    radial-gradient(circle at 50% 100%, rgba(35, 202, 255, .12), transparent 35%),
+    linear-gradient(180deg, #02050b 0%, #06132b 48%, #02050b 100%) !important;
+}
+.contact::before {
+  opacity: .42 !important;
+  background-size: 72px 72px !important;
+}
+.contact::after {
+  width: min(74vw, 920px) !important;
+  border-color: rgba(91, 172, 255, .22) !important;
+  box-shadow:
+    0 0 0 90px rgba(57, 143, 255, .025),
+    0 0 0 185px rgba(57, 143, 255, .018),
+    0 0 140px rgba(57, 143, 255, .16) !important;
+}
+.contact h2 { max-width: 1040px !important; }
+.contact-circuit { opacity: .78 !important; }
+.contact-circuit .circuit-traces path {
+  stroke: rgba(78, 174, 255, .72) !important;
+  stroke-width: 1.05 !important;
+  stroke-dasharray: 18 12 !important;
+  animation-duration: 14s !important;
+}
+
+/* Recruitment full-width sections */
+.recruit-page { overflow: hidden; }
+.recruit-hero,
+.recruit-values,
+.recruit-directions,
+.recruit-apply {
+  width: 100vw !important;
+  max-width: none !important;
+  margin-left: calc(50% - 50vw) !important;
+  border-radius: 0 !important;
+}
+.recruit-apply {
+  min-height: 100svh !important;
+  display: flex !important;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Explore images feel cinematic rather than stretched */
+.photo-slide img {
+  object-fit: cover !important;
+  object-position: center 43% !important;
+  filter: brightness(.62) contrast(1.08) saturate(.86) !important;
+}
+.photo-copy { max-width: 900px; }
+
+@media (max-width: 960px) {
+  .daily-grid,
+  .records-grid,
+  .learn-more-grid,
+  .gallery-grid { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
+}
+
+@media (max-width: 700px) {
+  .home-gallery-viewport { width: calc(100vw - 28px) !important; border-radius: 22px !important; }
+  .home-gallery-slide,
+  .card-visual { aspect-ratio: 4 / 3 !important; }
+  .home-gallery-slide figcaption { left: 16px !important; right: 16px !important; bottom: 16px !important; }
+  .daily-grid,
+  .records-grid,
+  .learn-more-grid,
+  .gallery-grid { grid-template-columns: 1fr !important; gap: 16px !important; }
+  .daily-grid img,
+  .records-grid img,
+  .learn-more-grid img,
+  .gallery-grid img { aspect-ratio: 4 / 3 !important; border-radius: 18px !important; }
+  .contact { min-height: 96svh !important; padding: 115px 20px !important; }
+  .contact::after { width: 128vw !important; }
+}
