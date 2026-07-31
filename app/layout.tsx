@@ -11,6 +11,7 @@ import "./apple-product-v4.css";
 import "./visual-fixes-v5.css";
 import "./premium-layout-v6.css";
 import "./join-background-v7.css";
+import "./join-circuit-v8.css";
 import MobileNavEnhancer from "./MobileNavEnhancer";
 
 const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
