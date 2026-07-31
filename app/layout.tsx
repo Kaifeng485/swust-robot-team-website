@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import "./mobile-fix.css";
+import "./mobile-contact.css";
 import MobileNavEnhancer from "./MobileNavEnhancer";
 
 const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
