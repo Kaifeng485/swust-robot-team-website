@@ -1,3 +1,6 @@
+"use client";
+
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { defaultContent } from "../site-content";
 import "./v2.css";
@@ -14,8 +17,19 @@ const disciplines = [
 ];
 
 export default function V2Page() {
+  const [menuOpen, setMenuOpen] = useState(false);
   const gallery = defaultContent.galleryPhotos.slice(0, 5);
   const seasons = defaultContent.seasons.slice(0, 3);
+
+  useEffect(() => {
+    const closeOnEscape = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setMenuOpen(false);
+    };
+    window.addEventListener("keydown", closeOnEscape);
+    return () => window.removeEventListener("keydown", closeOnEscape);
+  }, []);
+
+  const closeMenu = () => setMenuOpen(false);
 
   return (
     <main className="v2-site">
@@ -24,14 +38,45 @@ export default function V2Page() {
           <img src={asset("/logo-transparent.webp")} alt="SWUST Robot Team" />
           <span><strong>西南科技大学机器人小组</strong><small>SWUST ROBOTICS</small></span>
         </Link>
-        <nav>
+        <nav className="v2-desktop-nav">
           <a href="#manifesto"><strong>团队宣言</strong><small>MANIFESTO</small></a>
           <a href="#engineering"><strong>工程方向</strong><small>ENGINEERING</small></a>
           <a href="#robocon"><strong>机器人赛事</strong><small>ROBOCON</small></a>
           <a href="#join"><strong>加入我们</strong><small>JOIN US</small></a>
         </nav>
-        <span className="v2-index">V2 / 2027</span>
+        <div className="v2-nav-actions">
+          <a className="v2-recruit-link" href={`${basePath}/recruitment/`}>
+            <strong>招新官网</strong><small>RECRUITMENT</small>
+          </a>
+          <span className="v2-index">V2 / 2027</span>
+          <button
+            className={`v2-menu-toggle${menuOpen ? " is-open" : ""}`}
+            type="button"
+            aria-label={menuOpen ? "关闭导航菜单" : "打开导航菜单"}
+            aria-expanded={menuOpen}
+            aria-controls="v2-mobile-menu"
+            onClick={() => setMenuOpen((open) => !open)}
+          >
+            <i /><i />
+          </button>
+        </div>
       </header>
+
+      <div
+        className={`v2-mobile-menu${menuOpen ? " is-open" : ""}`}
+        id="v2-mobile-menu"
+        aria-hidden={!menuOpen}
+      >
+        <div className="v2-mobile-menu-head"><span>页面导航</span><small>SITE DIRECTORY</small></div>
+        <nav aria-label="移动端导航">
+          <a href="#manifesto" onClick={closeMenu}><span>01</span><strong>团队宣言</strong><small>MANIFESTO</small></a>
+          <a href="#engineering" onClick={closeMenu}><span>02</span><strong>工程方向</strong><small>ENGINEERING</small></a>
+          <a href="#robocon" onClick={closeMenu}><span>03</span><strong>机器人赛事</strong><small>ROBOCON</small></a>
+          <a href="#join" onClick={closeMenu}><span>04</span><strong>加入我们</strong><small>JOIN US</small></a>
+          <a href={`${basePath}/recruitment/`} onClick={closeMenu}><span>05</span><strong>招新官网</strong><small>RECRUITMENT</small></a>
+        </nav>
+        <p>西南科技大学机器人小组 <small>SWUST ROBOTICS</small></p>
+      </div>
 
       <section className="v2-hero">
         <div className="v2-grid" />
@@ -41,6 +86,8 @@ export default function V2Page() {
           <img
             src={asset(defaultContent.heroBackgroundImage || "/gate.webp")}
             alt="西南科技大学机器人小组"
+            fetchPriority="high"
+            decoding="async"
           />
         </div>
 
@@ -57,8 +104,8 @@ export default function V2Page() {
               className="v2-hero-calligraphy"
               src={asset("/robot-team-calligraphy.svg")}
               alt="机器人小组"
-              width="1600"
-              height="271"
+              width="1953"
+              height="332"
               draggable={false}
             />
 
@@ -66,6 +113,12 @@ export default function V2Page() {
               <span className="v2-title-cn">让智能，驱动未来。</span>
               <span className="v2-title-en">BUILD INTELLIGENCE INTO MOTION.</span>
             </h1>
+          </div>
+
+          <div className="v2-hero-specs" aria-label="团队数据">
+            <div><strong>24+</strong><span>年团队传承<small>YEARS OF LEGACY</small></span></div>
+            <div><strong>04</strong><span>大工程方向<small>DISCIPLINES</small></span></div>
+            <div><strong>01</strong><span>个共同目标<small>ONE SHARED GOAL</small></span></div>
           </div>
 
           <div className="v2-hero-bottom">
@@ -96,7 +149,7 @@ export default function V2Page() {
       </section>
 
       <section className="v2-product">
-        <div className="v2-product-image"><img src={asset(gallery[1]?.image || "/gate.webp")} alt="参赛机器人" /></div>
+        <div className="v2-product-image"><img src={asset(gallery[1]?.image || "/gate.webp")} alt="参赛机器人" loading="lazy" decoding="async" /></div>
         <div className="v2-product-ui top"><span><b>机器人平台</b><small>ROBOT PLATFORM</small></span><span><b>西科大机器人系列</b><small>SWUST / R-Series</small></span></div>
         <div className="v2-product-ui bottom"><span><b>为赛场而生</b><small>DESIGNED FOR THE FIELD</small></span><span><b>原型 → 测试 → 参赛</b><small>PROTOTYPE → TEST → COMPETE</small></span></div>
         <div className="v2-product-copy"><p><strong>工程设计，而非简单组装。</strong><small>ENGINEERED, NOT ASSEMBLED.</small></p><h2>每一颗螺栓，<br />都有它存在的理由。</h2></div>
@@ -117,7 +170,7 @@ export default function V2Page() {
       </section>
 
       <section className="v2-robocon" id="robocon">
-        <div className="v2-robocon-bg"><img src={asset(gallery[0]?.image || "/gate.webp")} alt="ROBOCON 赛场" /></div>
+        <div className="v2-robocon-bg"><img src={asset(gallery[0]?.image || "/gate.webp")} alt="ROBOCON 赛场" loading="lazy" decoding="async" /></div>
         <div className="v2-robocon-overlay" />
         <div className="v2-robocon-copy">
           <div className="v2-section-mark light"><span>03</span><div><strong>机器人赛事</strong><b>ROBOCON</b></div></div>
@@ -134,7 +187,7 @@ export default function V2Page() {
         <div className="v2-season-grid">
           {seasons.map((season, index) => (
             <article key={season.id} className={index === 0 ? "featured" : ""}>
-              <img src={asset(season.image || gallery[index]?.image || "/gate.webp")} alt={season.title} />
+              <img src={asset(season.image || gallery[index]?.image || "/gate.webp")} alt={season.title} loading="lazy" decoding="async" />
               <div className="v2-season-shade" />
               <span>{String(index + 1).padStart(2,"0")} / {season.kind}</span>
               <div><h3>{season.year}</h3><p>{season.title}</p></div>
@@ -146,7 +199,7 @@ export default function V2Page() {
       <section className="v2-gallery">
         <div className="v2-marquee"><span><strong>设计 / 制造 / 测试 / 再出发 / </strong><small>DESIGN / BUILD / TEST / REPEAT /</small></span><span><strong>设计 / 制造 / 测试 / 再出发 / </strong><small>DESIGN / BUILD / TEST / REPEAT /</small></span></div>
         <div className="v2-gallery-strip">
-          {gallery.map((photo, index) => <figure key={photo.id}><img src={asset(photo.image)} alt={photo.title} /><figcaption><span>0{index+1}</span><b>{photo.title}</b><em>{photo.caption}</em></figcaption></figure>)}
+          {gallery.map((photo, index) => <figure key={photo.id}><img src={asset(photo.image)} alt={photo.title} loading="lazy" decoding="async" /><figcaption><span>0{index+1}</span><b>{photo.title}</b><em>{photo.caption}</em></figcaption></figure>)}
         </div>
       </section>
 
