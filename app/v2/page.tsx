@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { defaultContent } from "../site-content";
 import "./v2.css";
@@ -34,6 +34,9 @@ const uploadedGallery = [
 
 export default function V2Page() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const galleryRef = useRef<HTMLDivElement>(null);
+  const galleryDrag = useRef({ active: false, startX: 0, scrollLeft: 0 });
+
   const gallery = [...uploadedGallery, ...defaultContent.galleryPhotos.slice(0, 5)];
   const seasons = defaultContent.seasons.slice(0, 3);
 
@@ -44,6 +47,45 @@ export default function V2Page() {
     window.addEventListener("keydown", closeOnEscape);
     return () => window.removeEventListener("keydown", closeOnEscape);
   }, []);
+
+  useEffect(() => {
+    const galleryElement = galleryRef.current;
+    if (!galleryElement) return;
+
+    const scrollWithWheel = (event: WheelEvent) => {
+      if (Math.abs(event.deltaY) <= Math.abs(event.deltaX)) return;
+      event.preventDefault();
+      galleryElement.scrollLeft += event.deltaY;
+    };
+
+    galleryElement.addEventListener("wheel", scrollWithWheel, { passive: false });
+    return () => galleryElement.removeEventListener("wheel", scrollWithWheel);
+  }, []);
+
+  const startGalleryDrag = (event: React.PointerEvent<HTMLDivElement>) => {
+    if (event.pointerType === "mouse" && event.button !== 0) return;
+    galleryDrag.current = {
+      active: true,
+      startX: event.clientX,
+      scrollLeft: event.currentTarget.scrollLeft,
+    };
+    event.currentTarget.classList.add("is-dragging");
+    event.currentTarget.setPointerCapture(event.pointerId);
+  };
+
+  const moveGalleryDrag = (event: React.PointerEvent<HTMLDivElement>) => {
+    if (!galleryDrag.current.active) return;
+    event.currentTarget.scrollLeft =
+      galleryDrag.current.scrollLeft - (event.clientX - galleryDrag.current.startX);
+  };
+
+  const endGalleryDrag = (event: React.PointerEvent<HTMLDivElement>) => {
+    galleryDrag.current.active = false;
+    event.currentTarget.classList.remove("is-dragging");
+    if (event.currentTarget.hasPointerCapture(event.pointerId)) {
+      event.currentTarget.releasePointerCapture(event.pointerId);
+    }
+  };
 
   const closeMenu = () => setMenuOpen(false);
 
@@ -219,7 +261,18 @@ export default function V2Page() {
 
       <section className="v2-gallery">
         <div className="v2-marquee"><span><strong>设计 / 制造 / 测试 / 再出发 / </strong><small>DESIGN / BUILD / TEST / REPEAT /</small></span><span><strong>设计 / 制造 / 测试 / 再出发 / </strong><small>DESIGN / BUILD / TEST / REPEAT /</small></span></div>
-        <div className="v2-gallery-strip">
+        <div
+          className="v2-gallery-strip"
+          ref={galleryRef}
+          onPointerDown={startGalleryDrag}
+          onPointerMove={moveGalleryDrag}
+          onPointerUp={endGalleryDrag}
+          onPointerCancel={endGalleryDrag}
+          onPointerLeave={(event) => {
+            if (galleryDrag.current.active) endGalleryDrag(event);
+          }}
+          aria-label="团队照片，可按住鼠标左右拖动或使用滚轮浏览"
+        >
           {gallery.map((photo, index) => <figure key={photo.id}><img src={asset(photo.image)} alt={photo.title} loading="lazy" decoding="async" /><figcaption><span>0{index+1}</span><b>{photo.title}</b><em>{photo.caption}</em></figcaption></figure>)}
         </div>
       </section>
