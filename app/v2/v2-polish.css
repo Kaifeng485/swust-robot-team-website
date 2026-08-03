@@ -33,3 +33,6 @@
 .v2-join-copy a{display:grid;grid-template-columns:auto auto;gap:5px 30px}.v2-join-copy a strong{font:600 14px/1 "PingFang SC","Microsoft YaHei",sans-serif;letter-spacing:.12em}.v2-join-copy a small{font:600 7px/1 monospace;letter-spacing:.16em;color:#9ca5b1}.v2-join-copy a span{grid-column:2;grid-row:1/3}
 .v2-join footer>span,.v2-join footer>a{gap:5px}.v2-join footer b{font:600 11px/1 "PingFang SC","Microsoft YaHei",sans-serif;letter-spacing:.08em;color:#c6cbd2}.v2-join footer small{font:500 7px/1 monospace;letter-spacing:.13em}
 @media(max-width:800px){.v2-brand strong{font-size:11px}.v2-brand small{font-size:6px}.v2-overline strong{font-size:13px}.v2-hero-english-title .v2-title-cn{font-size:clamp(28px,8vw,42px)!important}.v2-hero-english-title .v2-title-en{font-size:8px!important}.v2-section-head h2>small{margin-left:0}.v2-product-ui b{font-size:9px}.v2-process strong{font-size:13px}.v2-marquee span{gap:12px}.v2-join-copy h2 strong{font-size:clamp(46px,14vw,76px)}.v2-join-copy h2 small{font-size:8px}.v2-join footer b{font-size:9px}}
+
+.v2-gallery-strip::after{content:"拖动浏览  /  SCROLL TO MOVE  →"}
+@media(max-width:800px){.v2-gallery-strip::after{content:"滑动浏览  /  SWIPE  →"}}
