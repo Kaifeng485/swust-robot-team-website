@@ -23,7 +23,6 @@ const uploadedGallery = [
   { id: "new-04", title: "实验室日常", caption: "TEAM BRIEFING / LAB LIFE", image: "/v2-gallery/team-briefing.webp" },
   { id: "new-05", title: "赛场执行", caption: "MATCH OPERATION / ROBOCON", image: "/v2-gallery/robocon-match.webp" },
   { id: "new-06", title: "工程细节", caption: "QUADRUPED HARDWARE / SIDE VIEW", image: "/v2-gallery/quadruped-side.webp" },
-  { id: "new-07", title: "赛季合影", caption: "SWUST ROBOT TEAM / 2025", image: "/v2-gallery/robocon-team-2025.webp" },
   { id: "new-08", title: "系统设计", caption: "ENGINEERING NOTES / WORK IN PROGRESS", image: "/v2-gallery/engineering-whiteboard.webp" },
   { id: "new-09", title: "机器人上场", caption: "ROBOT ON FIELD / ROBOCON", image: "/v2-gallery/robocon-robot-field.webp" },
   { id: "new-10", title: "设计验证", caption: "CAD TO REALITY / QUADRUPED", image: "/v2-gallery/quadruped-cad.webp" },
