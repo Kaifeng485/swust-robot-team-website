@@ -63,3 +63,13 @@
 @media(max-width:800px){.v2-site section[id]{scroll-margin-top:62px}.v2-nav-actions{gap:11px}.v2-index{display:none}.v2-menu-toggle{display:grid}.v2-mobile-menu{padding-top:92px}.v2-mobile-menu nav a{min-height:72px}.v2-hero-specs{width:100%;margin-top:18px}.v2-hero-specs>div{gap:8px;padding:11px 8px 11px 0}.v2-hero-specs>div+div{padding-left:8px}.v2-hero-specs>div>strong{font-size:20px}.v2-hero-specs>div>span{font-size:9px}.v2-hero-specs small{font-size:5px;letter-spacing:.08em}.v2-hero-bottom{margin-top:20px}}
 @media(max-width:420px){.v2-brand>span{max-width:170px}.v2-mobile-menu nav a{grid-template-columns:30px 1fr auto;min-height:68px}.v2-mobile-menu nav a strong{font-size:23px}.v2-mobile-menu nav a small{font-size:6px}.v2-hero-specs>div>span{font-size:8px}.v2-hero-specs>div>strong{font-size:18px}}
 @media(prefers-reduced-motion:reduce){.v2-mobile-menu,.v2-menu-toggle i,.v2-recruit-link{transition:none!important}}
+
+/* Hero video and final CTA refinements */
+.v2-brand>span{align-items:center;text-align:center}
+.v2-hero-media video{display:block;width:100%;height:100%;object-fit:cover;object-position:center center;filter:saturate(.82) contrast(1.08) brightness(.9);animation:v2Zoom 14s ease-out both}
+.v2-hero-shade{background:linear-gradient(90deg,rgba(0,0,0,.64) 0%,rgba(0,0,0,.1) 52%,rgba(0,0,0,.32) 100%),linear-gradient(0deg,rgba(5,5,5,.86) 0%,transparent 32%,rgba(0,0,0,.08) 100%)}
+.v2-join-copy a{border-color:var(--acid);background:var(--acid);color:#071000;box-shadow:0 14px 42px rgba(164,210,24,.18)}
+.v2-join-copy a small{color:rgba(7,16,0,.62)}
+.v2-join-copy a:hover{background:#e4ff68;border-color:#e4ff68;color:#050a00;box-shadow:0 18px 54px rgba(164,210,24,.28)}
+@media(max-width:800px){.v2-hero-media video{object-position:center center;filter:saturate(.8) contrast(1.06) brightness(.92)}.v2-hero-shade{background:linear-gradient(90deg,rgba(0,0,0,.54),rgba(0,0,0,.14)),linear-gradient(0deg,rgba(5,5,5,.84),transparent 38%)}}
+@media(prefers-reduced-motion:reduce){.v2-hero-media video{animation:none!important}}

@@ -83,12 +83,17 @@ export default function V2Page() {
         <div className="v2-noise" />
 
         <div className="v2-hero-media">
-          <img
-            src={asset(defaultContent.heroBackgroundImage || "/gate.webp")}
-            alt="西南科技大学机器人小组"
-            fetchPriority="high"
-            decoding="async"
-          />
+          <video
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="metadata"
+            poster={asset(defaultContent.heroBackgroundImage || "/gate.webp")}
+            aria-label="西南科技大学机器人小组备赛影像"
+          >
+            <source src={asset("/v2-hero-background.mp4")} type="video/mp4" />
+          </video>
         </div>
 
         <div className="v2-hero-shade" />
@@ -209,7 +214,7 @@ export default function V2Page() {
           <g className="nodes"><circle cx="220" cy="145" r="7"/><circle cx="370" cy="260" r="7"/><circle cx="330" cy="530" r="7"/><circle cx="1370" cy="120" r="7"/><circle cx="1260" cy="300" r="7"/><circle cx="1280" cy="600" r="7"/></g>
         </svg>
         <img className="v2-join-logo" src={asset("/logo-transparent.webp")} alt="" />
-        <div className="v2-join-copy"><p><strong>下一个机器人系统，需要你。</strong><small>THE NEXT SYSTEM NEEDS YOU.</small></p><h2><strong>加入我们，<br />共赴未来。</strong><small>JOIN THE FUTURE.</small></h2><a href={`mailto:${defaultContent.contactEmail}`}><strong>立即报名</strong><small>APPLY NOW</small><span>↗</span></a></div>
+        <div className="v2-join-copy"><p><strong>下一个机器人系统，需要你。</strong><small>THE NEXT SYSTEM NEEDS YOU.</small></p><h2><strong>加入我们</strong><small>JOIN US.</small></h2><a href={`mailto:${defaultContent.contactEmail}`}><strong>立即报名</strong><small>APPLY NOW</small><span>↗</span></a></div>
         <footer><span><b>西科大机器人小组</b><small>SWUST ROBOTICS © 2027</small></span><Link href="/"><b>返回当前官网</b><small>CURRENT WEBSITE</small></Link><span><b>中国 · 绵阳</b><small>MIANYANG / CHINA</small></span></footer>
       </section>
     </main>
