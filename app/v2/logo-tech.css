@@ -1,0 +1,43 @@
+/* V2.2 Logo Tech Animation */
+.v2-join-logo{
+  animation:v2HeartPulse 2.2s ease-in-out infinite,
+    v2LogoFloat 6s ease-in-out infinite;
+  filter:drop-shadow(0 0 18px rgba(215,255,56,.35));
+}
+
+.v2-join::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:
+    radial-gradient(circle at 50% 42%,rgba(215,255,56,.12),transparent 16%),
+    radial-gradient(circle at 50% 42%,transparent 25%,rgba(215,255,56,.06) 26%,transparent 42%);
+  pointer-events:none;
+}
+
+.v2-circuit path{
+  stroke:#d7ff38;
+  stroke-dasharray:18 12;
+  animation:v2Flow 6s linear infinite;
+}
+
+.v2-circuit circle{
+  animation:v2CircuitNode 2s ease-in-out infinite;
+}
+
+@keyframes v2HeartPulse{
+  0%,100%{transform:translate(-50%,-50%) scale(1)}
+  10%{transform:translate(-50%,-50%) scale(1.06)}
+  18%{transform:translate(-50%,-50%) scale(1)}
+  32%{transform:translate(-50%,-50%) scale(1.04)}
+  45%{transform:translate(-50%,-50%) scale(1)}
+}
+
+@keyframes v2CircuitNode{
+  0%,100%{opacity:.4;filter:drop-shadow(0 0 4px #d7ff38)}
+  50%{opacity:1;filter:drop-shadow(0 0 16px #d7ff38)}
+}
+
+@media(max-width:800px){
+ .v2-join-logo{animation-duration:2.8s,7s}
+}
