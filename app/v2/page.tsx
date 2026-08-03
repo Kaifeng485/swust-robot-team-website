@@ -22,13 +22,13 @@ export default function V2Page() {
       <header className="v2-nav">
         <Link href="/" className="v2-brand">
           <img src={asset("/logo-transparent.webp")} alt="SWUST Robot Team" />
-          <span>SWUST ROBOTICS</span>
+          <span><strong>西南科技大学机器人小组</strong><small>SWUST ROBOTICS</small></span>
         </Link>
         <nav>
-          <a href="#manifesto">Manifesto</a>
-          <a href="#engineering">Engineering</a>
-          <a href="#robocon">ROBOCON</a>
-          <a href="#join">Join</a>
+          <a href="#manifesto"><strong>团队宣言</strong><small>MANIFESTO</small></a>
+          <a href="#engineering"><strong>工程方向</strong><small>ENGINEERING</small></a>
+          <a href="#robocon"><strong>机器人赛事</strong><small>ROBOCON</small></a>
+          <a href="#join"><strong>加入我们</strong><small>JOIN US</small></a>
         </nav>
         <span className="v2-index">V2 / 2027</span>
       </header>
@@ -48,7 +48,8 @@ export default function V2Page() {
 
         <div className="v2-hero-copy">
           <p className="v2-overline">
-            SOUTHWEST UNIVERSITY OF SCIENCE AND TECHNOLOGY
+            <strong>西南科技大学</strong>
+            <small>SOUTHWEST UNIVERSITY OF SCIENCE AND TECHNOLOGY</small>
           </p>
 
           <div className="v2-hero-title-group">
@@ -62,8 +63,8 @@ export default function V2Page() {
             />
 
             <h1 className="v2-hero-english-title">
-              <span>BUILD INTELLIGENCE</span>
-              <span>INTO MOTION.</span>
+              <span className="v2-title-cn">让智能，驱动未来。</span>
+              <span className="v2-title-en">BUILD INTELLIGENCE INTO MOTION.</span>
             </h1>
           </div>
 
@@ -74,7 +75,7 @@ export default function V2Page() {
               用机械赋予力量，用代码注入灵魂。
             </p>
             <a href="#manifesto">
-              SCROLL TO EXPLORE <b>↓</b>
+              <strong>向下探索</strong><small>SCROLL TO EXPLORE</small><b>↓</b>
             </a>
           </div>
         </div>
@@ -84,30 +85,30 @@ export default function V2Page() {
       </section>
 
       <section className="v2-manifesto" id="manifesto">
-        <div className="v2-section-mark"><span>01</span><b>MANIFESTO</b></div>
-        <p className="v2-manifesto-lead">A ROBOT IS NOT A MACHINE.</p>
+        <div className="v2-section-mark"><span>01</span><div><strong>团队宣言</strong><b>MANIFESTO</b></div></div>
+        <p className="v2-manifesto-lead"><strong>机器人，从来不只是一台机器。</strong><small>A ROBOT IS NOT JUST A MACHINE.</small></p>
         <h2>它是结构、电子、控制、视觉与人的意志，在同一个目标下完成的系统协作。</h2>
         <div className="v2-manifesto-meta">
           <p>成立于 2002 年。二十余年持续参与机器人竞赛与工程实践，将课堂中的理论转化为可以在真实赛场运行的系统。</p>
-          <div><strong>2002</strong><span>TEAM FOUNDED</span></div>
-          <div><strong>40+</strong><span>ENGINEERS / YEAR</span></div>
+          <div><strong>2002</strong><span><b>团队成立</b><small>TEAM FOUNDED</small></span></div>
+          <div><strong>40+</strong><span><b>每年工程成员</b><small>ENGINEERS / YEAR</small></span></div>
         </div>
       </section>
 
       <section className="v2-product">
         <div className="v2-product-image"><img src={asset(gallery[1]?.image || "/gate.webp")} alt="参赛机器人" /></div>
-        <div className="v2-product-ui top"><span>ROBOT PLATFORM</span><span>SWUST / R-Series</span></div>
-        <div className="v2-product-ui bottom"><span>DESIGNED FOR THE FIELD</span><span>PROTOTYPE → TEST → COMPETE</span></div>
-        <div className="v2-product-copy"><p>ENGINEERED, NOT ASSEMBLED.</p><h2>每一颗螺栓，<br />都有它存在的理由。</h2></div>
+        <div className="v2-product-ui top"><span><b>机器人平台</b><small>ROBOT PLATFORM</small></span><span><b>西科大机器人系列</b><small>SWUST / R-Series</small></span></div>
+        <div className="v2-product-ui bottom"><span><b>为赛场而生</b><small>DESIGNED FOR THE FIELD</small></span><span><b>原型 → 测试 → 参赛</b><small>PROTOTYPE → TEST → COMPETE</small></span></div>
+        <div className="v2-product-copy"><p><strong>工程设计，而非简单组装。</strong><small>ENGINEERED, NOT ASSEMBLED.</small></p><h2>每一颗螺栓，<br />都有它存在的理由。</h2></div>
       </section>
 
       <section className="v2-engineering" id="engineering">
-        <div className="v2-section-head"><div className="v2-section-mark"><span>02</span><b>ENGINEERING</b></div><h2>ONE SYSTEM.<br />FOUR DISCIPLINES.</h2></div>
+        <div className="v2-section-head"><div className="v2-section-mark"><span>02</span><div><strong>工程方向</strong><b>ENGINEERING</b></div></div><h2><strong>一个系统，<br />四大方向。</strong><small>ONE SYSTEM. FOUR DISCIPLINES.</small></h2></div>
         <div className="v2-discipline-list">
           {disciplines.map((item) => (
             <article key={item.no}>
               <span>{item.no}</span>
-              <div><h3>{item.name}</h3><b>{item.cn}</b></div>
+              <div><h3>{item.cn}</h3><b>{item.name}</b></div>
               <p>{item.text}</p>
               <i>↗</i>
             </article>
@@ -119,17 +120,17 @@ export default function V2Page() {
         <div className="v2-robocon-bg"><img src={asset(gallery[0]?.image || "/gate.webp")} alt="ROBOCON 赛场" /></div>
         <div className="v2-robocon-overlay" />
         <div className="v2-robocon-copy">
-          <div className="v2-section-mark light"><span>03</span><b>ROBOCON</b></div>
-          <p>THE FIELD IS THE FINAL TEST.</p>
+          <div className="v2-section-mark light"><span>03</span><div><strong>机器人赛事</strong><b>ROBOCON</b></div></div>
+          <p><strong>赛场，是系统的最终检验。</strong><small>THE FIELD IS THE FINAL TEST.</small></p>
           <h2>十个月的设计、制造与调试，最终被压缩进赛场上的几分钟。</h2>
         </div>
         <div className="v2-process">
-          {[["01","CONCEPT"],["02","PROTOTYPE"],["03","INTEGRATION"],["04","FIELD TEST"]].map(([n,t]) => <div key={n}><span>{n}</span><b>{t}</b></div>)}
+          {[["01","概念设计","CONCEPT"],["02","原型制造","PROTOTYPE"],["03","系统集成","INTEGRATION"],["04","赛场测试","FIELD TEST"]].map(([n,cn,en]) => <div key={n}><span>{n}</span><strong>{cn}</strong><b>{en}</b></div>)}
         </div>
       </section>
 
       <section className="v2-seasons">
-        <div className="v2-section-head dark"><div className="v2-section-mark"><span>04</span><b>ARCHIVE</b></div><h2>SEASONS<br />IN MOTION.</h2></div>
+        <div className="v2-section-head dark"><div className="v2-section-mark"><span>04</span><div><strong>赛季档案</strong><b>ARCHIVE</b></div></div><h2><strong>赛季，<br />永不停步。</strong><small>SEASONS IN MOTION.</small></h2></div>
         <div className="v2-season-grid">
           {seasons.map((season, index) => (
             <article key={season.id} className={index === 0 ? "featured" : ""}>
@@ -143,7 +144,7 @@ export default function V2Page() {
       </section>
 
       <section className="v2-gallery">
-        <div className="v2-marquee"><span>DESIGN / BUILD / TEST / REPEAT / </span><span>DESIGN / BUILD / TEST / REPEAT / </span></div>
+        <div className="v2-marquee"><span><strong>设计 / 制造 / 测试 / 再出发 / </strong><small>DESIGN / BUILD / TEST / REPEAT /</small></span><span><strong>设计 / 制造 / 测试 / 再出发 / </strong><small>DESIGN / BUILD / TEST / REPEAT /</small></span></div>
         <div className="v2-gallery-strip">
           {gallery.map((photo, index) => <figure key={photo.id}><img src={asset(photo.image)} alt={photo.title} /><figcaption><span>0{index+1}</span><b>{photo.title}</b><em>{photo.caption}</em></figcaption></figure>)}
         </div>
@@ -155,8 +156,8 @@ export default function V2Page() {
           <g className="nodes"><circle cx="220" cy="145" r="7"/><circle cx="370" cy="260" r="7"/><circle cx="330" cy="530" r="7"/><circle cx="1370" cy="120" r="7"/><circle cx="1260" cy="300" r="7"/><circle cx="1280" cy="600" r="7"/></g>
         </svg>
         <img className="v2-join-logo" src={asset("/logo-transparent.webp")} alt="" />
-        <div className="v2-join-copy"><p>THE NEXT SYSTEM NEEDS YOU.</p><h2>JOIN<br />THE<br />FUTURE.</h2><a href={`mailto:${defaultContent.contactEmail}`}>APPLY NOW <span>↗</span></a></div>
-        <footer><span>SWUST ROBOTICS © 2027</span><Link href="/">CURRENT WEBSITE</Link><span>MIANYANG / CHINA</span></footer>
+        <div className="v2-join-copy"><p><strong>下一个机器人系统，需要你。</strong><small>THE NEXT SYSTEM NEEDS YOU.</small></p><h2><strong>加入我们，<br />共赴未来。</strong><small>JOIN THE FUTURE.</small></h2><a href={`mailto:${defaultContent.contactEmail}`}><strong>立即报名</strong><small>APPLY NOW</small><span>↗</span></a></div>
+        <footer><span><b>西科大机器人小组</b><small>SWUST ROBOTICS © 2027</small></span><Link href="/"><b>返回当前官网</b><small>CURRENT WEBSITE</small></Link><span><b>中国 · 绵阳</b><small>MIANYANG / CHINA</small></span></footer>
       </section>
     </main>
   );
