@@ -12,7 +12,7 @@ const asset = (path: string) => (path.startsWith("/") ? `${basePath}${path}` : p
 const disciplines = [
   { no: "01", name: "MECHANICAL", cn: "机械设计", text: "从任务拆解、结构设计到加工装配，让每一个机构都为速度、稳定与可靠性服务。" },
   { no: "02", name: "EMBEDDED", cn: "电控系统", text: "构建供电、驱动、传感与通信系统，让整台机器人拥有稳定运行的神经网络。" },
-  { no: "03", name: "CONTROL", cn: "运动控制", text: "把模型、轨迹与反馈写进代码，让机器人在高速运动中依然精准响应。" },
+  { no: "03", name: "HARDWARE", cn: "硬件开发", text: "完成电路设计、器件选型、PCB 制作与硬件调试，为机器人打造可靠的电子基础。" },
   { no: "04", name: "VISION", cn: "机器视觉", text: "让机器人理解赛场，从目标识别、定位到策略决策，完成从感知到行动的闭环。" },
 ];
 
@@ -145,9 +145,9 @@ export default function V2Page() {
       <section className="v2-manifesto" id="manifesto">
         <div className="v2-section-mark"><span>01</span><div><strong>团队宣言</strong><b>MANIFESTO</b></div></div>
         <p className="v2-manifesto-lead"><strong>机器人，从来不只是一台机器。</strong><small>A ROBOT IS NOT JUST A MACHINE.</small></p>
-        <h2>它是结构、电子、控制、视觉与人的意志，在同一个目标下完成的系统协作。</h2>
+        <h2>99%的人在这里被打败，但100%的人在这里收获成长！</h2>
         <div className="v2-manifesto-meta">
-          <p>成立于 2002 年。二十余年持续参与机器人竞赛与工程实践，将课堂中的理论转化为可以在真实赛场运行的系统。</p>
+          <p>机器人小组成立于2002年，自成立之初便开始参与ROBOCON赛事。团队坐落于德诚创意工厂（东九B座实验楼），经过二十余年的不断奋斗，已经形成了现如今的庞大规模，在ROBOCON赛事上成绩斐然。作为ROBOCON赛事的元老级团队，曾在主赛道获得全国冠军和多次全国一等奖，在马术赛道亦斩获颇丰，获得多次全国一等。多年以来，实验室陆续培养了数百名优秀工程师，为西南科技大学和社会的科技发展做出突出贡献。</p>
           <div><strong>2002</strong><span><b>团队成立</b><small>TEAM FOUNDED</small></span></div>
           <div><strong>40+</strong><span><b>每年工程成员</b><small>ENGINEERS / YEAR</small></span></div>
         </div>
