@@ -76,3 +76,44 @@
 .v2-join-copy a:hover{background:#e4ff68;border-color:#e4ff68;color:#050a00;box-shadow:0 18px 54px rgba(164,210,24,.28)}
 @media(max-width:800px){.v2-hero-media video{object-position:center center;filter:saturate(.8) contrast(1.06) brightness(.92)}.v2-hero-shade{background:linear-gradient(90deg,rgba(0,0,0,.54),rgba(0,0,0,.14)),linear-gradient(0deg,rgba(5,5,5,.84),transparent 38%)}}
 @media(prefers-reduced-motion:reduce){.v2-hero-media video{animation:none!important}}
+
+
+/* 2025 gallery expansion and Join Us title refinement */
+.v2-gallery-strip figure:nth-child(4n+1){flex-basis:min(62vw,860px)}
+.v2-gallery-strip figure:nth-child(4n+2){flex-basis:min(44vw,600px)}
+.v2-gallery-strip figure:nth-child(4n+3){flex-basis:min(52vw,720px)}
+.v2-gallery-strip figure:nth-child(4n){flex-basis:min(38vw,520px)}
+.v2-gallery-strip figure img{aspect-ratio:16/10}
+.v2-gallery-strip figure:nth-child(4n) img,.v2-gallery-strip figure:nth-child(4n+2) img{aspect-ratio:4/3}
+.v2-gallery-strip figcaption b{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;letter-spacing:.08em}
+.v2-join-copy h2{position:relative;padding:0 .08em}
+.v2-join-copy h2 strong{
+  position:relative;
+  display:inline-block;
+  font-family:"PingFang SC","Microsoft YaHei","Noto Sans SC",sans-serif;
+  font-weight:800;
+  letter-spacing:.035em;
+  color:#f5f8ed;
+  background:linear-gradient(180deg,#ffffff 6%,#e9ff9c 48%,#bfe72d 100%);
+  -webkit-background-clip:text;
+  background-clip:text;
+  -webkit-text-fill-color:transparent;
+  -webkit-text-stroke:1px rgba(215,255,56,.18);
+  text-shadow:0 14px 48px rgba(166,216,31,.18);
+}
+.v2-join-copy h2 strong::after{
+  content:"";
+  position:absolute;
+  left:10%;
+  right:10%;
+  bottom:-13px;
+  height:3px;
+  background:linear-gradient(90deg,transparent,var(--acid) 22%,#fff 50%,var(--acid) 78%,transparent);
+  box-shadow:0 0 18px rgba(215,255,56,.72);
+}
+@media(max-width:800px){
+  .v2-gallery-strip figure:nth-child(n){flex-basis:84vw}
+  .v2-gallery-strip figure img,.v2-gallery-strip figure:nth-child(n) img{aspect-ratio:4/3}
+  .v2-join-copy h2 strong{letter-spacing:.02em}
+  .v2-join-copy h2 strong::after{bottom:-9px;height:2px}
+}

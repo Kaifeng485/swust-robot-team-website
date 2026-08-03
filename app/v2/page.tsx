@@ -16,9 +16,25 @@ const disciplines = [
   { no: "04", name: "VISION", cn: "机器视觉", text: "让机器人理解赛场，从目标识别、定位到策略决策，完成从感知到行动的闭环。" },
 ];
 
+const uploadedGallery = [
+  { id: "new-01", title: "赛场调试", caption: "FIELD DEBUGGING / ROBOCON 2025", image: "/v2-gallery/2025-field-debug.webp" },
+  { id: "new-02", title: "四足机器人", caption: "QUADRUPED PLATFORM / PROTOTYPE", image: "/v2-gallery/quadruped-track.webp" },
+  { id: "new-03", title: "并肩作战", caption: "TEAM & MACHINES / ROBOCON", image: "/v2-gallery/robocon-team-machines.webp" },
+  { id: "new-04", title: "实验室日常", caption: "TEAM BRIEFING / LAB LIFE", image: "/v2-gallery/team-briefing.webp" },
+  { id: "new-05", title: "赛场执行", caption: "MATCH OPERATION / ROBOCON", image: "/v2-gallery/robocon-match.webp" },
+  { id: "new-06", title: "工程细节", caption: "QUADRUPED HARDWARE / SIDE VIEW", image: "/v2-gallery/quadruped-side.webp" },
+  { id: "new-07", title: "赛季合影", caption: "SWUST ROBOT TEAM / 2025", image: "/v2-gallery/robocon-team-2025.webp" },
+  { id: "new-08", title: "系统设计", caption: "ENGINEERING NOTES / WORK IN PROGRESS", image: "/v2-gallery/engineering-whiteboard.webp" },
+  { id: "new-09", title: "机器人上场", caption: "ROBOT ON FIELD / ROBOCON", image: "/v2-gallery/robocon-robot-field.webp" },
+  { id: "new-10", title: "设计验证", caption: "CAD TO REALITY / QUADRUPED", image: "/v2-gallery/quadruped-cad.webp" },
+  { id: "new-11", title: "原型迭代", caption: "ROBOT PROTOTYPE / ITERATION", image: "/v2-gallery/robot-prototype.webp" },
+  { id: "new-12", title: "结构正视", caption: "QUADRUPED PLATFORM / FRONT VIEW", image: "/v2-gallery/quadruped-front.webp" },
+  { id: "new-13", title: "我们的实验室", caption: "DECHENG CREATIVE FACTORY / LAB", image: "/v2-gallery/lab-corridor.webp" },
+];
+
 export default function V2Page() {
   const [menuOpen, setMenuOpen] = useState(false);
-  const gallery = defaultContent.galleryPhotos.slice(0, 5);
+  const gallery = [...uploadedGallery, ...defaultContent.galleryPhotos.slice(0, 5)];
   const seasons = defaultContent.seasons.slice(0, 3);
 
   useEffect(() => {
