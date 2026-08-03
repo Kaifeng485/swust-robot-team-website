@@ -1,5 +1,6 @@
 import { ReactNode } from "react";
 import V2Enhancements from "./V2Enhancements";
+import "./logo-tech.css";
 
 type V2LayoutProps = {
   children: ReactNode;
