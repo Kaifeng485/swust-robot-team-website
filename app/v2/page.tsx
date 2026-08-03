@@ -47,20 +47,6 @@ export default function V2Page() {
     return () => window.removeEventListener("keydown", closeOnEscape);
   }, []);
 
-  useEffect(() => {
-    const galleryElement = galleryRef.current;
-    if (!galleryElement) return;
-
-    const scrollWithWheel = (event: WheelEvent) => {
-      if (Math.abs(event.deltaY) <= Math.abs(event.deltaX)) return;
-      event.preventDefault();
-      galleryElement.scrollLeft += event.deltaY;
-    };
-
-    galleryElement.addEventListener("wheel", scrollWithWheel, { passive: false });
-    return () => galleryElement.removeEventListener("wheel", scrollWithWheel);
-  }, []);
-
   const startGalleryDrag = (event: React.PointerEvent<HTMLDivElement>) => {
     if (event.pointerType === "mouse" && event.button !== 0) return;
     galleryDrag.current = {

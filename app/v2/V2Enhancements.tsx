@@ -4,6 +4,59 @@ import { useEffect } from "react";
 
 export default function V2Enhancements() {
   useEffect(() => {
+    const progress = document.createElement("div");
+    progress.className = "v2-scroll-progress";
+    progress.setAttribute("aria-hidden", "true");
+    document.body.appendChild(progress);
+
+    const updateProgress = () => {
+      const max = document.documentElement.scrollHeight - window.innerHeight;
+      const value = max > 0 ? Math.min(1, window.scrollY / max) : 0;
+      progress.style.setProperty("--scroll-progress", String(value));
+    };
+    updateProgress();
+    window.addEventListener("scroll", updateProgress, { passive: true });
+    window.addEventListener("resize", updateProgress, { passive: true });
+    return () => {
+      window.removeEventListener("scroll", updateProgress);
+      window.removeEventListener("resize", updateProgress);
+      progress.remove();
+    };
+  }, []);
+
+  useEffect(() => {
+    const targets = Array.from(document.querySelectorAll<HTMLElement>(
+      ".v2-section-head, .v2-manifesto-lead, .v2-manifesto h2, .v2-manifesto-meta, .v2-product-copy, .v2-discipline-list article, .v2-robocon-copy, .v2-process, .v2-season-grid article, .v2-gallery-strip"
+    ));
+    targets.forEach((target) => target.classList.add("v2-reveal"));
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add("is-visible");
+        observer.unobserve(entry.target);
+      });
+    }, { threshold: 0.12, rootMargin: "0px 0px -7%" });
+    targets.forEach((target) => observer.observe(target));
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    const links = Array.from(document.querySelectorAll<HTMLAnchorElement>(".v2-desktop-nav a[href^='#']"));
+    const sections = links
+      .map((link) => document.querySelector<HTMLElement>(link.hash))
+      .filter((section): section is HTMLElement => Boolean(section));
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        links.forEach((link) => link.classList.toggle("is-active", link.hash === `#${entry.target.id}`));
+      });
+    }, { rootMargin: "-25% 0px -65%" });
+    sections.forEach((section) => observer.observe(section));
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
     const strip = document.querySelector<HTMLElement>(".v2-gallery-strip");
     if (strip) {
       let velocity = 0;
