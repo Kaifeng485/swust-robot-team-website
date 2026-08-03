@@ -48,7 +48,7 @@ export default function V2Page() {
   }, []);
 
   const startGalleryDrag = (event: React.PointerEvent<HTMLDivElement>) => {
-    if (event.pointerType === "mouse" && event.button !== 0) return;
+    if (event.pointerType !== "mouse" || event.button !== 0) return;
     galleryDrag.current = {
       active: true,
       startX: event.clientX,

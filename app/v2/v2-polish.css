@@ -323,3 +323,28 @@
   .v2-season-grid{gap:8px}
   .v2-gallery-strip img{filter:saturate(.86) contrast(1.03) brightness(.98)}
 }
+
+/* Native mobile gallery gestures and unified numeric accents */
+.v2-site{--number-accent:#d7ff38;--number-warm:#f1df73}
+.v2-hero-specs>div>strong,
+.v2-manifesto-meta strong,
+.v2-section-mark>span,
+.v2-process span,
+.v2-gallery-strip figcaption span,
+.v2-coordinate,
+.v2-index{color:var(--number-accent);text-shadow:0 0 18px rgba(215,255,56,.16)}
+.v2-season-grid h3{color:var(--number-warm);text-shadow:0 0 24px rgba(241,223,115,.12)}
+.v2-season-grid article>span{color:var(--number-accent)}
+.v2-section-mark>span{border-color:rgba(215,255,56,.42)}
+.v2-section-mark>span::after{border-color:rgba(215,255,56,.1)}
+@media(max-width:800px){
+  .v2-gallery-strip{
+    overflow-x:auto;
+    overflow-y:hidden;
+    touch-action:pan-x pan-y pinch-zoom;
+    overscroll-behavior-x:contain;
+    -webkit-overflow-scrolling:touch;
+    scroll-snap-type:x mandatory;
+  }
+  .v2-gallery-strip.is-dragging{scroll-snap-type:x mandatory}
+}
