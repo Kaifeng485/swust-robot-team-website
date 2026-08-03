@@ -1,1 +1,1 @@
-console.log('SWUST Robot Team V3 loaded');
+document.addEventListener('DOMContentLoaded',()=>{console.log('SWUST Robot Team V3 online');const logo=document.querySelector('.logo-box');if(logo){logo.addEventListener('mousemove',e=>{const x=(e.offsetX-logo.clientWidth/2)/20;const y=(e.offsetY-logo.clientHeight/2)/20;logo.style.transform=`rotateY(${x}deg) rotateX(${-y}deg)`});logo.addEventListener('mouseleave',()=>logo.style.transform='')}});
