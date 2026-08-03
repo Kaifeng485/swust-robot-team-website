@@ -117,3 +117,34 @@
   .v2-join-copy h2 strong{letter-spacing:.02em}
   .v2-join-copy h2 strong::after{bottom:-9px;height:2px}
 }
+
+
+/* Gallery pointer controls and safe Join Us typography */
+.v2-gallery-strip{cursor:grab;touch-action:pan-y;user-select:none;-webkit-user-select:none}
+.v2-gallery-strip.is-dragging{cursor:grabbing;scroll-snap-type:none}
+.v2-gallery-strip.is-dragging img{pointer-events:none}
+.v2-join-copy{width:100%;max-width:100vw;overflow:visible}
+.v2-join-copy h2{
+  width:100%;
+  max-width:94vw;
+  margin-left:auto;
+  margin-right:auto;
+  padding:.12em .04em .2em;
+  overflow:visible;
+  line-height:1.08;
+}
+.v2-join-copy h2 strong{
+  max-width:100%;
+  font-size:clamp(48px,7.6vw,110px);
+  line-height:1.08;
+  white-space:nowrap;
+  text-rendering:geometricPrecision;
+}
+.v2-join-copy h2 strong::after{bottom:-5px}
+@media(max-width:800px){
+  .v2-join-copy h2{max-width:96vw;padding-bottom:.18em}
+  .v2-join-copy h2 strong{font-size:clamp(44px,16.5vw,72px);line-height:1.1}
+}
+@media(max-width:420px){
+  .v2-join-copy h2 strong{font-size:clamp(42px,16vw,62px);letter-spacing:0}
+}
